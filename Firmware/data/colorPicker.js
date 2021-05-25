@@ -158,8 +158,21 @@ function createWheel() {
     }
   };
 
+  function colorWheelTouchEnd(evt) {
+    var rect = evt.target.getBoundingClientRect();
+    touchCoord = {
+      offsetX: evt.targetTouches[0].clientX - rect.x,
+      offsetY: evt.targetTouches[0].clientY - rect.y
+    };
+    var imgData = getColorFromEvent(touchCoord.offsetX,touchCoord.offsetY)
+    if(imgData.isValid){
+      alert("RGB: " + imgData.red + "," + imgData.green + "," + imgData.blue);
+    }
+  };
+
   //Bind mouse event
   colorWheel.onmousemove = colorWheelMouse;
-  colorWheel.ontouchmove = colorWheelTouch;
   colorWheel.onclick = colorWheelClick;
+  colorWheel.ontouchmove = colorWheelTouch;
+  colorWheel.ontouchend = colorWheelTouch;
 }
