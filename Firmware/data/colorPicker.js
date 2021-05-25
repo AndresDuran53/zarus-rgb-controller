@@ -104,9 +104,9 @@ function createWheel() {
   //Add ouput field
   var p = document.getElementById("colorPickerTextId");
 
-  function getColorFromEvent(evt) {
+  function getColorFromEvent(offsetX,offsetY) {
     var ctx = colorWheel.getContext("2d");
-    var imgData = ctx.getImageData(evt.offsetX, evt.offsetY, 1, 1);
+    var imgData = ctx.getImageData(offsetX, offsetY, 1, 1);
     var isValid = true;
     var red = imgData.data[0];
     var green = imgData.data[1];
@@ -125,7 +125,23 @@ function createWheel() {
   }
 
   function colorWheelMouse(evt) {
-    var imgData = getColorFromEvent(evt)
+    var imgData = getColorFromEvent(evt.offsetX,evt.offsetY)
+    if(imgData.isValid){
+      p.innerHTML = "RGB: " + imgData.red + "," + imgData.green + "," + imgData.blue;
+      var c = document.getElementById("canvasShowColorId");
+      var ctx = c.getContext("2d");
+      ctx.fillStyle = imgData.hex;
+      ctx.fillRect(0, 0, c.width, c.height);
+    }
+  };
+
+  function colorWheelTouch(evt) {
+    var rect = evt.target.getBoundingClientRect();
+    touchCoord = {
+      offsetX: evt.targetTouches[0].clientX - rect.x,
+      offsetY: evt.targetTouches[0].clientY - rect.y
+    };
+    var imgData = getColorFromEvent(touchCoord.offsetX,touchCoord.offsetY)
     if(imgData.isValid){
       p.innerHTML = "RGB: " + imgData.red + "," + imgData.green + "," + imgData.blue;
       var c = document.getElementById("canvasShowColorId");
@@ -136,7 +152,7 @@ function createWheel() {
   };
 
   function colorWheelClick(evt) {
-    var imgData = getColorFromEvent(evt)
+    var imgData = getColorFromEvent(evt.offsetX,evt.offsetY)
     if(imgData.isValid){
       alert("RGB: " + imgData.red + "," + imgData.green + "," + imgData.blue);
     }
@@ -144,6 +160,6 @@ function createWheel() {
 
   //Bind mouse event
   colorWheel.onmousemove = colorWheelMouse;
-  colorWheel.touchenter = colorWheelMouse;
+  colorWheel.touchmove = colorWheelTouch;
   colorWheel.onclick = colorWheelClick;
 }
