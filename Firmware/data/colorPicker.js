@@ -104,6 +104,11 @@ function createWheel() {
   //Add ouput field
   var p = document.getElementById("colorPickerTextId");
 
+  var lastCoord = {
+    offsetX:0,
+    offsetY:0,
+  };
+
   function getColorFromEvent(offsetX,offsetY) {
     var ctx = colorWheel.getContext("2d");
     var imgData = ctx.getImageData(offsetX, offsetY, 1, 1);
@@ -127,6 +132,10 @@ function createWheel() {
   function colorWheelMouse(evt) {
     var imgData = getColorFromEvent(evt.offsetX,evt.offsetY)
     if(imgData.isValid){
+      lastCoord = {
+        offsetX: evt.offsetX,
+        offsetY: evt.offsetY
+      };
       p.innerHTML = "RGB: " + imgData.red + "," + imgData.green + "," + imgData.blue;
       var c = document.getElementById("canvasShowColorId");
       var ctx = c.getContext("2d");
@@ -143,6 +152,10 @@ function createWheel() {
     };
     var imgData = getColorFromEvent(touchCoord.offsetX,touchCoord.offsetY)
     if(imgData.isValid){
+      lastCoord = {
+        offsetX: evt.targetTouches[0].clientX - rect.x,
+        offsetY: evt.targetTouches[0].clientY - rect.y
+      };
       p.innerHTML = "RGB: " + imgData.red + "," + imgData.green + "," + imgData.blue;
       var c = document.getElementById("canvasShowColorId");
       var ctx = c.getContext("2d");
@@ -160,11 +173,7 @@ function createWheel() {
 
   function colorWheelTouchEnd(evt) {
     var rect = evt.target.getBoundingClientRect();
-    touchCoord = {
-      offsetX: evt.targetTouches[0].clientX - rect.x,
-      offsetY: evt.targetTouches[0].clientY - rect.y
-    };
-    var imgData = getColorFromEvent(touchCoord.offsetX,touchCoord.offsetY)
+    var imgData = getColorFromEvent(lastCoord.offsetX,lastCoord.offsetY)
     if(imgData.isValid){
       alert("RGB: " + imgData.red + "," + imgData.green + "," + imgData.blue);
     }
