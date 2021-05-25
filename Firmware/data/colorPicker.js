@@ -29,9 +29,9 @@ function degreesToRadians(degrees) {
  * @param {string} [centerColor="white"]
  * @returns {HTMLCanvasElement}
  */
-function generateColorWheel(size, centerColor) {
-    if (size === void 0) { size = 400; }
+function generateColorWheel(centerColor) {
     if (centerColor === void 0) { centerColor = "white"; }
+    size = document.getElementById('colorDiv').clientWidth * 0.9 ;
     //Generate main canvas to return
     var canvas = document.createElement("canvas");
     canvas.id = "colorPickerId"
