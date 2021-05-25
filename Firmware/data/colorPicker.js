@@ -160,6 +160,6 @@ function createWheel() {
 
   //Bind mouse event
   colorWheel.onmousemove = colorWheelMouse;
-  colorWheel.touchmove = colorWheelTouch;
+  colorWheel.ontouchmove = colorWheelTouch;
   colorWheel.onclick = colorWheelClick;
 }
