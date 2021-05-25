@@ -1,0 +1,78 @@
+<html lang="en">
+	<!doctype html>
+	<head>
+		<link href="./style.css" rel="stylesheet">
+		<link href="form-validation.css" rel="stylesheet">
+	</head>
+	<body class="bg-dark">
+	<div class="container">
+		<div class="py-5 text-center">
+			<img class="d-block mx-auto mb-4" src="img/Zarus_logo_blanco.svg" alt="" width="180">
+
+			<div class="mx-auto" style="max-width: 30rem;">
+				<form action="/index" method="post" class="needs-validation" novalidate>
+					<div class="card-body text-light bg-dark" style="text-align: left;">
+						<h5 class="mb-3 title-zarus">Credenciales de tu red wifi</h5>
+							<div class="col-mb-3" "title-zarus">
+								<label for="ssid">Nombre de la red wifi</label>
+								<input type="text" class="form-control" id="rcsid" name="rcsid" placeholder="SSID" value="" required>
+								<div class="invalid-feedback">
+									Debe indicar el nombre de la red wifi.
+								</div>
+							</div>
+							<div class="col-mb-3">
+								<label for="password">Contraseña de la red wifi</label>
+								<input type="password" class="form-control" id="rcpid" name="rcpid" placeholder="Contraseña" value="" required>
+								<div class="invalid-feedback">
+									Debe indicar la contraseña correspondiente de la red wifi.
+								</div>
+							</div>
+						<hr class="mb-4">
+						<h5 class="mb-3 title-zarus">Nombre del dispositivo</h5>
+							<div class="col-mb-3">
+								<label for="deviceSsid">Nombre del dispositivo</label>
+								<input type="text" class="form-control" id="rcdid" name="rcdid" placeholder="SSID" value="" required>
+								<div class="invalid-feedback">
+									Debe indicar el nombre de la red wifi.
+								</div>
+							</div>
+							<div class="col-mb-3">
+								<label for="ssidPassword">Contraseña del dispositivo</label>
+								<input type="password" class="form-control" id="rcdpa" name="rcdpa" placeholder="Contraseña" value="" required>
+								<div class="invalid-feedback">
+									Debe indicar la contraseña correspondiente de la red wifi.
+								</div>
+							</div>
+						<hr class="mb-4">
+						<h5 class="mb-3 title-zarus">Inserte el id del usuario y del dispositivo</h5>
+							<div class="col-mb-3">
+								<label for="tokenId">ID del usuario</label>
+								<input type="text" class="form-control" id="mctid" name="mctid" placeholder="TokenID" value="" required>
+								<div class="invalid-feedback">
+									Debe indicar el iD del usuario.
+								</div>
+							</div>
+							<div class="col-mb-3">
+								<label for="DeviceId">ID del dispositivo</label>
+								<input type="text" class="form-control" id="mcdid" name="mcdid" placeholder="ID del dispositivo" value="" required>
+								<div class="invalid-feedback">
+									Debe indicar el ID de la nueva huerta verdi.
+								</div>
+							</div>
+					</div>
+					<div class="card-footer bg-dark border-dark">
+						<button class="btn btn-zarus btn-lg btn-block" type="submit">Guardar</button>
+					</div>
+				</form>
+			</div>
+			<footer class="my-5 pt-5 text-muted text-center text-small">
+				<p class="mb-1">&copy; Zarus Laboratories</p>
+			</footer>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="./js/jquery.slim.min.js"><\/script>')</script>
+	<script src="./js/bootstrap.bundle.min.js"></script>
+	<script src="form-validation.js"></script>
+	</body>
+</html>

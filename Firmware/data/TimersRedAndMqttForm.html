@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+	<meta charset="UTF-8">
+	<link href="./style.css" rel="stylesheet">
+    <link href="form-validation.css" rel="stylesheet">
+  </head>
+  <body class="bg-dark">
+    <div class="container">
+  <div class="py-5 text-center">
+    <h2>Timers de conexión</h2>
+    <p class="lead">Abajo usted puede cambiar el intervalo de ejecución entre los intentos de conexión.</p>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 order-md-1">
+      <h4 class="mb-3"></h4>
+      <form action="/setConnectionTimers" method="post" class="needs-validation" novalidate>
+          <div class="col-md-4 mb-3">
+            <label for="state">Timer de la conexión de la red wifi y el MQTT.</label>
+            <select class="custom-select d-block w-100" id="rmcis" name="rmcis" required>
+              <option value="">Minuto</option>
+              <option>00</option>
+              <option>05</option>
+              <option>10</option>
+              <option>15</option>
+              <option>20</option>
+              <option>25</option>
+              <option>30</option>
+              <option>35</option>
+              <option>40</option>
+              <option>45</option>
+              <option>50</option>
+              <option>55</option>
+              <option>60</option>
+            </select>
+            <div class="invalid-feedback">
+              Por favor indique cada cuanto quiere que el timer se ejecute.
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="state">Timer del envio de información por medio de la conexión MQTT.</label>
+            <select class="custom-select d-block w-100" id="msdis" name="msdis" required>
+              <option value="">Minuto</option>
+              <option>00</option>
+              <option>05</option>
+              <option>10</option>
+              <option>15</option>
+              <option>20</option>
+              <option>25</option>
+              <option>30</option>
+              <option>35</option>
+              <option>40</option>
+              <option>45</option>
+              <option>50</option>
+              <option>55</option>
+              <option>60</option>
+            </select>
+            <div class="invalid-feedback">
+              Por favor indique cada cuanto quiere que el timer se ejecute.
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="state">Timer para verificar si hay datos por recibir por medio de la conexión MQTT.</label>
+            <select class="custom-select d-block w-100" id="mrdis" name="mrdis" required>
+              <option value="">Minuto</option>
+              <option>00</option>
+              <option>05</option>
+              <option>10</option>
+              <option>15</option>
+              <option>20</option>
+              <option>25</option>
+              <option>30</option>
+              <option>35</option>
+              <option>40</option>
+              <option>45</option>
+              <option>50</option>
+              <option>55</option>
+              <option>60</option>
+            </select>
+            <div class="invalid-feedback">
+              Por favor indique cada cuanto quiere que el timer se ejecute.
+            </div>
+          </div>
+        <hr class="mb-4">
+		<div class="row">
+			<div class="col-md-4">
+			</div>
+			<div class="col-md-4">
+				<button class="btn btn-zarus btn-lg btn-block" type="submit">Guardar</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+			</div>
+			<div class="col-md-4">
+				<button class="btn btn-zarus-link btn-lg btn-block" type="submit">Cancelar</button>
+			</div>
+		</div>
+	  </form>
+    </div>
+  </div>
+
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; Zarus Laboratories</p>
+  </footer>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="./js/jquery.slim.min.js"><\/script>')</script><script src="./js/bootstrap.bundle.min.js"></script>
+        <script src="form-validation.js"></script></body>
+</html>
