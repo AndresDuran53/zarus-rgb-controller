@@ -144,5 +144,6 @@ function createWheel() {
 
   //Bind mouse event
   colorWheel.onmousemove = colorWheelMouse;
+  colorWheel.touchenter = colorWheelMouse;
   colorWheel.onclick = colorWheelClick;
 }
