@@ -174,5 +174,5 @@ function createWheel() {
   colorWheel.onmousemove = colorWheelMouse;
   colorWheel.onclick = colorWheelClick;
   colorWheel.ontouchmove = colorWheelTouch;
-  colorWheel.ontouchend = colorWheelTouch;
+  colorWheel.ontouchend = colorWheelTouchEnd;
 }
