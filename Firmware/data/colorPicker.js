@@ -31,7 +31,7 @@ function degreesToRadians(degrees) {
  */
 function generateColorWheel(centerColor) {
     if (centerColor === void 0) { centerColor = "white"; }
-    size = document.getElementById('colorDiv').clientWidth * 0.9 ;
+    size = document.getElementById('colorDiv').clientWidth * 0.6 ;
     //Generate main canvas to return
     var canvas = document.createElement("canvas");
     canvas.id = "colorPickerId"
