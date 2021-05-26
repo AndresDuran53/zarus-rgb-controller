@@ -6,26 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./style.css" rel="stylesheet">
-    <link href="./colorPicker.css" rel="stylesheet">
+    <link href="./colorPicker.css?ver=0.0.0.0.1" rel="stylesheet">
   </head>
   <body onload="createWheel()" class="bg-dark">
     <div class="container">
-  		<div class="text-center">
-  			<img class="d-block mx-auto mb-4" src="img/Zarus_logo_blanco.svg" alt="" width="50">
+  		<div class="py-2 text-center">
+  			<img class="d-block mx-auto mb-4" src="img/Zarus_logo_blanco.svg" alt="" width="70">
         <h2>Color Picker</h2>
-        <div class="mx-auto">
-          <div id="colorDiv" class="color-space">
+        <br>
+        <div class="mx-auto row">
+          <div id="colorDiv" class="color-space col-7">
           </div>
-          <br>
-          <div id="colorShowDiv" class="color-space row">
-            <div class="col"></div>
-            <div class="col-4">
+          <div id="colorShowDiv" class="color-space col-5 row">
+            <div class="col">
               <p id="colorPickerTextId">RGB: 0,0,0</p>
             </div>
-            <div class="col-auto">
+            <div class="col">
               <canvas id="canvasShowColorId"></canvas>
             </div>
-            <div class="col"></div>
           </div>
         </div>
         <footer class="my-5 pt-5 text-muted text-center">
