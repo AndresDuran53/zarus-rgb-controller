@@ -1,0 +1,40 @@
+<html lang="es">
+  <head>
+    <title>Color Changer</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./colorPicker.css" rel="stylesheet">
+    <link id="dark-theme-style" rel="stylesheet" />
+  </head>
+  <body onload="createWheel()" class="bg-dark">
+    <div class="container">
+  		<div class="py-5 text-center">
+  			<img class="d-block mx-auto mb-4" src="img/Zarus_logo_blanco.svg" alt="" width="256">
+        <h1>Color Picker</h1>
+        <div class="mx-auto">
+          <div id="colorDiv" class="color-space">
+          </div>
+          <br>
+          <div id="colorShowDiv" class="color-space row">
+            <div class="col"></div>
+            <div class="col-4">
+              <p id="colorPickerTextId">RGB: 0,0,0</p>
+            </div>
+            <div class="col-auto">
+              <canvas id="canvasShowColorId"></canvas>
+            </div>
+            <div class="col"></div>
+          </div>
+        </div>
+        <footer class="my-5 pt-5 text-muted text-center">
+          <p class="mb-1">&copy; Zarus Laboratories</p>
+        </footer>
+      </div>
+    </div>
+  </body>
+  <script src="jquery-3.5.1.slim.min.js"></script>
+	<script src="./js/bootstrap.bundle.min.js"></script>
+  <script src="colorPicker.js"></script>
+</html>
