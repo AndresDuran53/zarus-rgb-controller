@@ -129,6 +129,14 @@ function createWheel() {
     return rgb;
   }
 
+  function changeColorViewer(imgData){
+    p.innerHTML = "RGB: " + imgData.red + "," + imgData.green + "," + imgData.blue;
+    var c = document.getElementById("canvasShowColorId");
+    var ctx = c.getContext("2d");
+    ctx.fillStyle = imgData.hex;
+    ctx.fillRect(0, 0, c.width, c.height);
+  }
+
   function colorWheelMouse(evt) {
     var imgData = getColorFromEvent(evt.offsetX,evt.offsetY)
     if(imgData.isValid){
@@ -136,18 +144,14 @@ function createWheel() {
         offsetX: evt.offsetX,
         offsetY: evt.offsetY
       };
-      p.innerHTML = "RGB: " + imgData.red + "," + imgData.green + "," + imgData.blue;
-      var c = document.getElementById("canvasShowColorId");
-      var ctx = c.getContext("2d");
-      ctx.fillStyle = imgData.hex;
-      ctx.fillRect(0, 0, c.width, c.height);
+      changeColorViewer(imgData);
     }
   };
 
   function colorWheelClick(evt) {
     var imgData = getColorFromEvent(evt.offsetX,evt.offsetY)
     if(imgData.isValid){
-      alert("RGB: " + imgData.red + "," + imgData.green + "," + imgData.blue);
+      alert("[WheelClick] RGB: " + imgData.red + "," + imgData.green + "," + imgData.blue);
     }
   };
 
@@ -164,11 +168,7 @@ function createWheel() {
         offsetX: evt.targetTouches[0].clientX - rect.x,
         offsetY: evt.targetTouches[0].clientY - rect.y
       };
-      p.innerHTML = "RGB: " + imgData.red + "," + imgData.green + "," + imgData.blue;
-      var c = document.getElementById("canvasShowColorId");
-      var ctx = c.getContext("2d");
-      ctx.fillStyle = imgData.hex;
-      ctx.fillRect(0, 0, c.width, c.height);
+      changeColorViewer(imgData);
     }
   };
 
@@ -193,7 +193,8 @@ function createWheel() {
     var rect = evt.target.getBoundingClientRect();
     var imgData = getColorFromEvent(lastCoord.offsetX,lastCoord.offsetY)
     if(imgData.isValid){
-      alert("RGB: " + imgData.red + "," + imgData.green + "," + imgData.blue);
+      changeColorViewer(imgData);
+      alert("[TouchEnd] RGB: " + imgData.red + "," + imgData.green + "," + imgData.blue);
     }
   };
 

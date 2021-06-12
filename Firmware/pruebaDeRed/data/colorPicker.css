@@ -1,4 +1,33 @@
 #canvasShowColorId{
-  height: 3rem;
+  height: 1rem;
   width: 6rem;
+}
+
+.btn{
+  font-family: Futura, Trebuchet MS, Arial, sans-serif !important;
+  font-style: italic !important;
+  font-variant: normal !important;
+  font-weight: 700 !important;
+  line-height: 25px !important;
+}
+
+h2{
+  font-family: Futura, Trebuchet MS, Arial, sans-serif;
+  font-style: italic;
+  font-variant: normal;
+  font-weight: 700;
+  line-height: 25px;
+}
+
+h3{
+  color: var(--zarus-text-muted);
+  font-family: Futura, Trebuchet MS, Arial, sans-serif !important;
+  font-style: italic !important;
+  font-variant: normal !important;
+  font-weight: 700 !important;
+  line-height: 25px !important;
+}
+
+.btn-outline-gray{
+    margin-bottom: 7px;
 }
