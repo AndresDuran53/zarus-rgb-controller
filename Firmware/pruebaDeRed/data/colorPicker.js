@@ -31,7 +31,7 @@ function degreesToRadians(degrees) {
  */
 function generateColorWheel(centerColor) {
     if (centerColor === void 0) { centerColor = "white"; }
-    size = document.getElementById('colorDiv').clientWidth * 0.55 ;
+    size = document.getElementById('colorDiv').clientWidth * 0.7 ;
     //Generate main canvas to return
     var canvas = document.createElement("canvas");
     canvas.id = "colorPickerId";
@@ -97,7 +97,6 @@ function generateColorWheel(centerColor) {
 }
 
 function createWheel() {
-  //TEST
   //Get color wheel canvas
   var colorWheel = generateColorWheel();
   //Add color wheel canvas to document
@@ -145,6 +144,13 @@ function createWheel() {
     }
   };
 
+  function colorWheelClick(evt) {
+    var imgData = getColorFromEvent(evt.offsetX,evt.offsetY)
+    if(imgData.isValid){
+      alert("RGB: " + imgData.red + "," + imgData.green + "," + imgData.blue);
+    }
+  };
+
   function colorWheelTouch(evt) {
     evt.preventDefault();
     var rect = evt.target.getBoundingClientRect();
@@ -166,15 +172,20 @@ function createWheel() {
     }
   };
 
-  function colorWheelClick(evt) {
-    var imgData = getColorFromEvent(evt.offsetX,evt.offsetY)
-    if(imgData.isValid){
-      alert("RGB: " + imgData.red + "," + imgData.green + "," + imgData.blue);
-    }
-  };
-
   function colorWheelTouchStart(evt) {
     evt.preventDefault();
+    var rect = evt.target.getBoundingClientRect();
+    touchCoord = {
+      offsetX: evt.targetTouches[0].clientX - rect.x,
+      offsetY: evt.targetTouches[0].clientY - rect.y
+    };
+    var imgData = getColorFromEvent(touchCoord.offsetX,touchCoord.offsetY)
+    if(imgData.isValid){
+      lastCoord = {
+        offsetX: evt.targetTouches[0].clientX - rect.x,
+        offsetY: evt.targetTouches[0].clientY - rect.y
+      };
+    }
   };
 
   function colorWheelTouchEnd(evt) {
