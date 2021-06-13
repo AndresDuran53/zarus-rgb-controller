@@ -16,8 +16,9 @@ void RedController::init(String deviceSSID, String devicePassword, String redSSI
   this->connectionAttemptInterval = 10000;
   this->checkConnectionInterval = 1000;
   this->wasConnectedToAccessPoint = false;
-  shouldConnectToAccessPoint = redSSID != "";
+  updateIfShouldConnectToAccessPoint();
   mdnsName = deviceSSID;
+  setup_wifi();
 }
 
 void RedController::setup_wifi() {
@@ -28,6 +29,10 @@ void RedController::setup_wifi() {
   configServer();
 }
 
+void RedController::updateIfShouldConnectToAccessPoint() {
+  this->shouldConnectToAccessPoint = ssid != "";
+}
+
 void RedController::connectToAccessPoint() {
   WiFi.begin(ssid, password);  //Nos conectamos a un AccessPoint con acceso a Internet
 }
@@ -35,15 +40,10 @@ void RedController::connectToAccessPoint() {
 boolean RedController::isConnectedToAccessPoint() {
   boolean actualStatus = WiFi.status() == WL_CONNECTED;
   if (actualStatus && !wasConnectedToAccessPoint) {
-    Serial.println("");
-    Serial.print("Connected to ");
-    Serial.println(ssid);
-    Serial.print("IP address: ");
-    Serial.println(WiFi.localIP());
+    Logger::log("Connected to : " + ssid, Logger::DEBUG_LOG);
+    Logger::log("IP address: " + getIp(), Logger::DEBUG_LOG);
     if (MDNS.begin(deviceSSID)) {
-      Serial.print("MDNS responder started at URL: ");
-      Serial.print(deviceSSID);
-      Serial.println(".local");
+      Logger::log("MDNS responder started at URL: " + deviceSSID + ".local", Logger::DEBUG_LOG);
     }
   }
   wasConnectedToAccessPoint = actualStatus;
@@ -58,29 +58,30 @@ void RedController::handleConnection() {
       if (millis() > lastConnectionAttempt + connectionAttemptInterval) {
         lastConnectionAttempt = millis();
         connectToAccessPoint();
-        Serial.print("Trying to Connect to: ");
-        Serial.println(ssid);
+        Logger::log("Trying to Connect to: " + ssid, Logger::DEBUG_LOG);
       }
     }
   }
 }
 
 void RedController::configServer() {
+  server.on("/getRedInformation", std::bind(&RedController::handleGetRedInformation, this));
+  server.on("/setValues", std::bind(&RedController::handleSetValues, this));
   server.onNotFound(std::bind(&RedController::handleNotFound, this));
   if (!SPIFFS.begin())
   {
-    Serial.println("SPIFFS Mount failed");
+    Logger::log("SPIFFS Mount failed", Logger::DEBUG_LOG);
   } else {
-    Serial.println("SPIFFS Mount succesfull");
-    server.serveStatic("/style.css", SPIFFS, "/style.css");
+    Logger::log("SPIFFS Mount succesfull", Logger::DEBUG_LOG);
     server.serveStatic("/", SPIFFS, "/index.html");
+    server.serveStatic("/style.css", SPIFFS, "/style.css");
   }
   server.begin();
 }
 
 void RedController::handleNotFound() {
-  if (!handleFileRead(server.uri())){
-   server.send(404, "text/plain", "404: Not Found"); 
+  if (!handleFileRead(server.uri())) {
+    server.send(404, "text/plain", "404: Not Found");
   }
 }
 
@@ -94,7 +95,7 @@ String RedController::getContentType(String filename) { // convert the file exte
 }
 
 bool RedController::handleFileRead(String path) {
-  Serial.println("handleFileRead: " + path);
+  Logger::log("handleFileRead: " + path, Logger::DEBUG_LOG);
   if (path.endsWith("/")) path = "/index.html";         // If a folder is requested, send the index file
   String contentType = getContentType(path);            // Get the MIME type
   if (SPIFFS.exists(path)) {                            // If the file exists
@@ -103,8 +104,31 @@ bool RedController::handleFileRead(String path) {
     file.close();                                       // Then close the file again
     return true;
   }
-  Serial.println("\tFile Not Found");
+  Logger::log("\tFile Not Found", Logger::DEBUG_LOG);
   return false;                                         // If the file doesn't exist, return false
+}
+
+void RedController::handleGetRedInformation() {
+  String jsonResponse = "{\"deviceSSID\":\""+deviceSSID+"\",\"ssid\":\""+ssid+"\"}";
+  server.send(200, "text/json", jsonResponse);
+}
+
+void RedController::handleSetValues() {
+  String jsonResponse;
+  for (uint8_t i = 0; i < server.args(); i++) {
+    String argumentName = server.argName(i);
+    String argumentValue = server.arg(i);
+    if ((*RedController::isValidArgument)(argumentName)) {
+      boolean wasExecuted = (*RedController::setValues)(argumentName, argumentValue);
+      if (wasExecuted) jsonResponse = "{\"result\":\"true\"}";
+      else jsonResponse = "{\"result\":\"false\"}";
+    }
+  }
+  server.send(200, "text/json", jsonResponse);
+}
+
+void RedController::handleClient() {
+  server.handleClient();
 }
 
 void RedController::update_timeNTP(int dateTime[]) {
@@ -122,16 +146,13 @@ void RedController::update_timeNTP(int dateTime[]) {
   dateTime[5] = ti->tm_sec;
 }
 
-void RedController::handleClient() {
-  server.handleClient();
-}
-
 void RedController::setShouldConnectToAccessPoint(boolean shouldConnectToAP) {
   this->shouldConnectToAccessPoint = shouldConnectToAccessPoint;
 }
 
 void RedController::setSsid(String ssid) {
   this->ssid = ssid;
+  updateIfShouldConnectToAccessPoint();
 }
 
 void RedController::setPassword(String password) {
@@ -139,6 +160,7 @@ void RedController::setPassword(String password) {
 }
 
 void RedController::setDeviceSSID(String deviceSsid) {
+  Logger::log("Changing Device Name: " + deviceSsid, Logger::DEBUG_LOG);
   this->deviceSSID = deviceSsid;
 }
 
@@ -159,6 +181,17 @@ void RedController::setDeviceCredentials(String deviceSsid, String devicePasswor
   //if (anyChange) ESP.restart();
 }
 
+void RedController::setIsValidArgument(boolean (setFunction)(String commandName)) {
+  this->isValidArgument = setFunction;
+}
+
+void RedController::setSetValues(boolean (setFunction)(String argumentName, String argumentValue)) {
+  this->setValues = setFunction;
+}
+
+void RedController::setGetValue(String (setFuntion)(String commandName)) {
+  this->getValue = setFuntion;
+}
 
 boolean RedController::getShouldConnectToAccessPoint() {
   return shouldConnectToAccessPoint;
@@ -178,4 +211,8 @@ String RedController::getPassword() {
 
 String RedController::getDevicePassword() {
   return devicePassword;
+}
+
+String RedController::getIp() {
+  return WiFi.localIP().toString();
 }

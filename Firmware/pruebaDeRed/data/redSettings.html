@@ -1,0 +1,53 @@
+<html lang="en">
+	<!doctype html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="style.css" onload="this.media='all'">
+		<noscript>
+		  <link rel="stylesheet" href="style.css" media="screen">
+		</noscript>
+		<link href="zarus.css" rel="stylesheet">
+		<link href="form-validation.css" rel="stylesheet">
+	</head>
+	<body class="bg-dark">
+	<div class="container">
+		<div class="py-5 text-center">
+			<img class="d-block mx-auto mb-4" src="img/Zarus_logo_blanco.svg" alt="" width="180">
+
+			<div class="mx-auto">
+				<form action="/setValues" method="get" class="needs-validation" novalidate>
+					<div class="card-body text-light bg-dark" style="text-align: left;">
+						<h5 class="mb-3 title-zarus">Credenciales de tu red wifi</h5>
+							<div class="col-mb-3" "title-zarus">
+								<label for="ssid">Nombre de la red wifi</label>
+								<input type="text" class="form-control" id="rcsid" name="rcsid" placeholder="SSID" value="" required>
+								<div class="invalid-feedback">
+									Debe indicar el nombre de la red wifi.
+								</div>
+							</div>
+							<div class="col-mb-3">
+								<label for="password">Contraseña de la red wifi</label>
+								<input type="password" class="form-control" id="rcpid" name="rcpid" placeholder="Contraseña" value="" required>
+								<div class="invalid-feedback">
+									Debe indicar la contraseña correspondiente de la red wifi.
+								</div>
+							</div>
+					</div>
+					<div class="bg-dark border-dark">
+						<button class="btn btn-zarus btn-lg btn-block" type="submit">Guardar</button>
+						<button class="btn btn-outline-gray btn-lg btn-block" type="cancel" onclick="goBack();return false;">Cancel</button>
+					</div>
+				</form>
+			</div>
+			<footer class="my-5 pt-5 text-muted text-center text-small">
+				<p class="mb-1">&copy; Zarus Laboratories</p>
+			</footer>
+		</div>
+	</div>
+	<script src="jquery.min.js"></script>
+	<script src="./js/bootstrap.bundle.min.js"></script>
+	<script src="form-validation.js"></script>
+	</body>
+</html>

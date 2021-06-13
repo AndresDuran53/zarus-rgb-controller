@@ -1,0 +1,88 @@
+:root {
+    --zarus-black: #0F0F0D;
+    --zarus-gray: #3C3C3B;
+    --zarus-white: #DADADA;
+    --zarus-background: #1D1D1D;
+    --zarus-complement: #00A69C;
+    --zarus-complement-green: #0C9981;
+    --zarus-text-muted: #707070;
+}
+body {
+    margin: 0;
+    font-family: Futura, Trebuchet MS, Arial, sans-serif !important;
+    font-style: italic;
+    font-variant: normal;
+    font-weight: 700;
+    line-height: 25px;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    background-color: #1d1d1d;
+}
+.bg-dark {
+    color: var(--zarus-white);
+    background-color: var(--zarus-background) !important;
+}
+.btn{
+  font-family: Futura, Trebuchet MS, Arial, sans-serif !important;
+  font-style: italic !important;
+  font-variant: normal !important;
+  font-weight: 700 !important;
+  line-height: 25px !important;
+}
+.btn-zarus {
+    color: #fff;
+    background-color: var(--zarus-complement-green);
+    border-color: var(--zarus-complement-green);
+}
+.btn-zarus:hover {
+    color: var(--zarus-complement-green);
+    background-color: #c8cacc;
+    border-color: var(--zarus-complement-green);
+}
+.btn-zarus.focus, .btn-zarus:focus {
+    color: #fff;
+    background-color: var(--zarus-complement);
+    border-color: var(--zarus-complement-green);
+    box-shadow: 0 0 0 .2rem var(--zarus-complement-green);
+}
+.btn-zarus.disabled, .btn-zarus:disabled {
+    color: #fff;
+    background-color: var(--zarus-complement);
+    border-color: var(--zarus-complement-green);
+}
+.btn-zarus:not(:disabled):not(.disabled).active, .btn-zarus:not(:disabled):not(.disabled):active, .show>.btn-zarus.dropdown-toggle {
+    color: #fff;
+    background-color: var(--zarus-complement-green);
+    border-color: var(--zarus-complement);
+}
+.btn-zarus:not(:disabled):not(.disabled).active:focus, .btn-zarus:not(:disabled):not(.disabled):active:focus, .show>.btn-zarus.dropdown-toggle:focus {
+    box-shadow: 0 0 0 .2rem var(--zarus-complement-green);
+}
+.btn-zarus-link {
+    font-weight: 400;
+    color: var(--zarus-white);
+    text-decoration: none;
+}
+.btn-zarus-link:hover {
+    color: var(--zarus-white);
+    text-decoration: underline;
+    border-color: var(--zarus-gray);
+}
+.btn-zarus-link.focus, .btn-zarus-link:focus {
+    text-decoration: underline;
+    border-color: var(--zarus-gray);
+    box-shadow: 0 0 0 .1rem var(--zarus-complement-green);
+}
+.btn-zarus-link.disabled, .btn-zarus-link:disabled {
+    color: var(--zarus-gray);
+    pointer-events: none;
+    border-color: var(--zarus-complement-green);
+}
+.title-zarus {
+    color: var(--zarus-complement) !important;
+    text-align: center;
+}
+a.title-zarus:focus, a.title-zarus:hover {
+    color: var(--zarus-complement) !important;
+}
