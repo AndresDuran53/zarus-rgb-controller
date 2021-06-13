@@ -151,7 +151,10 @@ function createWheel() {
   function colorWheelClick(evt) {
     var imgData = getColorFromEvent(evt.offsetX,evt.offsetY)
     if(imgData.isValid){
-      alert("[WheelClick] RGB: " + imgData.red + "," + imgData.green + "," + imgData.blue);
+      var colorValues = {
+        rgbh: imgData.hex
+      }
+      sendColor(colorValues);
     }
   };
 
@@ -194,9 +197,20 @@ function createWheel() {
     var imgData = getColorFromEvent(lastCoord.offsetX,lastCoord.offsetY)
     if(imgData.isValid){
       changeColorViewer(imgData);
-      alert("[TouchEnd] RGB: " + imgData.red + "," + imgData.green + "," + imgData.blue);
+      var colorValues = {
+        rgbh: imgData.hex
+      }
+      sendColor(colorValues);
     }
   };
+
+  function sendColor(values){
+    $.post("/setValues",
+    values,
+    function(data, status){
+      //alert("Data: " + data + "\nStatus: " + status);
+    });
+  }
 
   //Bind mouse event
   colorWheel.onmousemove = colorWheelMouse;

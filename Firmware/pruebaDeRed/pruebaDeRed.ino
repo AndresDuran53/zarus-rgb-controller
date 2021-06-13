@@ -2,10 +2,14 @@
 #include "CommonData.h"
 #include "RedController.h"
 
+#define RED_PIN                 12
+#define GREEN_PIN               14
+#define BLUE_PIN                13
+#define MAX_BRIGHTNESS          1023
 #define DEVICE_NAME             "RGB_LED_123"
 #define DEVICE_PASSWORD         "password123"
-#define DEVICE_NAME_COMMAND_NAME             "rcdid"
-#define DEVICE_PASSWORD_COMMAND_NAME         "rcdpa"
+#define DEVICE_NAME_COMMAND_NAME          "rcdid"
+#define DEVICE_PASSWORD_COMMAND_NAME      "rcdpa"
 #define RED_NAME_COMMAND_NAME             "rcsid"
 #define RED_PASSWORD_COMMAND_NAME         "rcpid"
 
@@ -41,6 +45,9 @@ void fillCommonData() {
   CommonData::createCommonData("red_password", RED_PASSWORD_COMMAND_NAME, 32, pass, "String", [](String redPassword) {
     redController.setPassword(redPassword);
   });
+  CommonData::createCommonData("red_color_value", "rgbh", 9, "#000000", "String", [](String hexValue) {
+    setColorFromHex(hexValue);
+  });
   CommonData::getDataFromEeprom();
 }
 
@@ -53,9 +60,43 @@ void setup() {
   Logger::log("DEBUG MODE ON", Logger::DEBUG_LOG);
   fillCommonData();
   configRedController();
+  setColorFromRGB(255, 0, 0);
+  delay(1000);
+  setColorFromRGB(0, 255, 0);
+  delay(1000);
+  setColorFromRGB(0, 0, 255);
+  delay(1000);
+  setColorFromRGB(255, 255, 255);
 }
 
 void loop() {
   redController.handleClient();
   redController.handleConnection();
+}
+
+void configGPIO() {
+  pinMode(RED_PIN, OUTPUT);
+  pinMode(GREEN_PIN, OUTPUT);
+  pinMode(BLUE_PIN, OUTPUT);
+}
+
+void setColorFromRGB(int r, int g, int b) {
+  Logger::log("Setting RGB Value: "+String(r)+String(g)+String(b), Logger::INFO_LOG);
+  r = map(r, 0, 255, 0, MAX_BRIGHTNESS);
+  g = map(g, 0, 255, 0, MAX_BRIGHTNESS);
+  b = map(b, 0, 255, 0, MAX_BRIGHTNESS);
+  analogWrite(RED_PIN, r);
+  analogWrite(GREEN_PIN, g);
+  analogWrite(BLUE_PIN, b);
+}
+
+void setColorFromHex(String hexValue) {
+
+  Logger::log("Setting Hex Value: "+hexValue, Logger::DEBUG_LOG);
+  int number = (int) strtol( &hexValue[1], NULL, 16);
+  int r = number >> 16;
+  int g = number >> 8 & 0xFF;
+  int b = number & 0xFF;
+  setColorFromRGB(r,g,b);
+
 }

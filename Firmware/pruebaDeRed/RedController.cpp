@@ -119,9 +119,12 @@ void RedController::handleSetValues() {
     String argumentName = server.argName(i);
     String argumentValue = server.arg(i);
     if ((*RedController::isValidArgument)(argumentName)) {
+      Logger::log("argumentName Exists!", Logger::INFO_LOG);
       boolean wasExecuted = (*RedController::setValues)(argumentName, argumentValue);
       if (wasExecuted) jsonResponse = "{\"result\":\"true\"}";
       else jsonResponse = "{\"result\":\"false\"}";
+    }
+    else{
     }
   }
   server.send(200, "text/json", jsonResponse);

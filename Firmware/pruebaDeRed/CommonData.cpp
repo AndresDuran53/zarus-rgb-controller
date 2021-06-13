@@ -70,10 +70,10 @@ String CommonData::getValueFromCommonDataByCommandName(String commandName) {
 
 int CommonData::getIndexFromCommonDataByCommandName(String commandName) {
   for (int i = 0; i < indexCounter; i++) {
-    if (commonDataInstances[i]->getCommandName() == commandName) {
+    String auxCommandName = commonDataInstances[i]->getCommandName();
+    if (auxCommandName == commandName) {
       return i;
     }
-    return -1;
   }
   return -1;
 }
