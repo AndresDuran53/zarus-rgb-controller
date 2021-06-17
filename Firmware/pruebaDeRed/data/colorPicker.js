@@ -22,13 +22,7 @@ var fullColorHex = function(r,g,b) {
 function degreesToRadians(degrees) {
     return degrees * (Math.PI / 180);
 }
-/**
- * generateColorWheel
- *
- * @param {number} [size=400]
- * @param {string} [centerColor="white"]
- * @returns {HTMLCanvasElement}
- */
+
 function generateColorWheel(centerColor) {
     if (centerColor === void 0) { centerColor = "white"; }
     size = document.getElementById('colorDiv').clientWidth * 0.7 ;
@@ -109,6 +103,26 @@ function createWheel() {
     offsetY:0,
   };
 
+  var initValue = {
+    red:255,
+    green:255,
+    blue:255,
+    hex:fullColorHex(255, 255, 255),
+    isValid:true
+  };
+
+  function changeColorViewer(imgData){
+    p.innerHTML = "RGB: " + imgData.red + "," + imgData.green + "," + imgData.blue;
+    var canvasShowColor = document.getElementById("canvasShowColorId");
+    var ctx = canvasShowColor.getContext("2d");
+    ctx.fillStyle = imgData.hex;
+    ctx.fillRect(0, 0, canvasShowColor.width, canvasShowColor.height);
+    var colorBrightnessRange = document.getElementById("colorBrightnessRangeId");
+    colorBrightnessRange.style.backgroundImage = 'linear-gradient(to right, #0F0F0D, rgb(' + imgData.red + ',' + imgData.green + ',' + imgData.blue + '))';
+  }
+
+  changeColorViewer(initValue);
+
   function getColorFromEvent(offsetX,offsetY) {
     var ctx = colorWheel.getContext("2d");
     var imgData = ctx.getImageData(offsetX, offsetY, 1, 1);
@@ -127,14 +141,6 @@ function createWheel() {
       isValid:isValid
     };
     return rgb;
-  }
-
-  function changeColorViewer(imgData){
-    p.innerHTML = "RGB: " + imgData.red + "," + imgData.green + "," + imgData.blue;
-    var c = document.getElementById("canvasShowColorId");
-    var ctx = c.getContext("2d");
-    ctx.fillStyle = imgData.hex;
-    ctx.fillRect(0, 0, c.width, c.height);
   }
 
   function colorWheelMouse(evt) {
