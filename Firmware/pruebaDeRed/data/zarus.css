@@ -18,6 +18,7 @@ body {
     color: #212529;
     text-align: left;
     background-color: #1d1d1d;
+    padding-top: 5rem;
 }
 .bg-dark {
     color: var(--zarus-white);

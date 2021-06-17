@@ -13,12 +13,35 @@
     <link href="colorPicker.css?ver=0.0.0.0.1" rel="stylesheet">
   </head>
   <body onload="createWheel()" class="bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background: #333333">
+      <img src="img/Zarus_iso_blanco.svg" alt="" width="50">
+      <a class="navbar-brand">Color Picker</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Color Picker <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="redSettings.html">Red Settings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="deviceSettings.html">Device Settings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="tokenSettings.html">Token Settings</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
     <div class="container">
   		<div class="py-2 text-center">
-  			<img src="img/Zarus_logo_blanco.svg" alt="" width="70">
-        <h2>Color Picker</h2>
-        <br>
-
+  			<!--<img src="img/Zarus_logo_blanco.svg" alt="" width="70">-->
         <div class="mx-auto row">
           <div id="colorDiv" class="color-space col-7">
           </div>
