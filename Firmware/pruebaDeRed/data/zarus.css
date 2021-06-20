@@ -21,6 +21,10 @@ body {
     padding-top: 5rem;
 }
 
+nav{
+  text-align: left;
+}
+
 .bg-dark {
     color: var(--zarus-white);
     background-color: var(--zarus-background) !important;
