@@ -23,29 +23,45 @@ function degreesToRadians(degrees) {
     return degrees * (Math.PI / 180);
 }
 
-function generateColorWheel(centerColor) {
-    if (centerColor === void 0) { centerColor = "white"; }
-    size = document.getElementById('colorDiv').clientWidth * 0.7 ;
+function sendColor(values){
+  $.post("/setValues",
+  values,
+  function(data, status){
+    //alert("Data: " + data + "\nStatus: " + status);
+  });
+}
+
+function generateColorWheel() {
     //Generate main canvas to return
+
+    //Initiate variables
+    var size = document.getElementById('colorDiv').clientWidth * 0.7 ;
+    var halfSize = size/2;
+    var angle = 0;
+    var hexCode = [255, 0, 0];
+    var pivotPointer = 0;
+    var colorOffsetByDegree = 4.322;
+
     var canvas = document.createElement("canvas");
+    var canvasClone = document.createElement("canvas");
+
     canvas.id = "colorPickerId";
     canvas.setAttribute("style","touch-action: none;");
     var ctx = canvas.getContext("2d");
     canvas.width = canvas.height = size;
     //Generate canvas clone to draw increments on
-    var canvasClone = document.createElement("canvas");
+
     canvasClone.width = canvasClone.height = size;
     var canvasCloneCtx = canvasClone.getContext("2d");
-    //Initiate variables
-    var angle = 0;
-    var hexCode = [255, 0, 0];
-    var pivotPointer = 0;
-    var colorOffsetByDegree = 4.322;
+
     //For each degree in circle, perform operation
     while (angle++ < 360) {
         //find index immediately before and after our pivot
         var pivotPointerbefore = (pivotPointer + 3 - 1) % 3;
         var pivotPointerAfter = (pivotPointer + 3 + 1) % 3;
+        //Angle variables
+        var degreePlus = degreesToRadians(angle + 1);
+        var degreeMinus = degreesToRadians(angle - 1);
         //Modify colors
         if (hexCode[pivotPointer] < 255) {
             //If main points isn't full, add to main pointer
@@ -63,29 +79,30 @@ function generateColorWheel(centerColor) {
         //clear clone
         canvasCloneCtx.clearRect(0, 0, size, size);
         //Generate gradient and set as fillstyle
-        var grad = canvasCloneCtx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
-        grad.addColorStop(0, centerColor);
+        var grad = canvasCloneCtx.createRadialGradient(halfSize, halfSize, 0, halfSize, halfSize, halfSize);
+        grad.addColorStop(0, "white");
         grad.addColorStop(1, "rgb(" + hexCode.map(function (h) { return Math.floor(h); }).join(",") + ")");
         canvasCloneCtx.fillStyle = grad;
         //draw full circle with new gradient
         canvasCloneCtx.globalCompositeOperation = "source-over";
         canvasCloneCtx.beginPath();
-        canvasCloneCtx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+        canvasCloneCtx.arc(halfSize, halfSize, halfSize, 0, Math.PI * 2);
         canvasCloneCtx.closePath();
         canvasCloneCtx.fill();
         //Switch to "Erase mode"
         canvasCloneCtx.globalCompositeOperation = "destination-out";
         //Carve out the piece of the circle we need for this angle
         canvasCloneCtx.beginPath();
-        canvasCloneCtx.arc(size / 2, size / 2, 0, degreesToRadians(angle + 1), degreesToRadians(angle + 1));
-        canvasCloneCtx.arc(size / 2, size / 2, size / 2 + 1, degreesToRadians(angle + 1), degreesToRadians(angle + 1));
-        canvasCloneCtx.arc(size / 2, size / 2, size / 2 + 1, degreesToRadians(angle + 1), degreesToRadians(angle - 1));
-        canvasCloneCtx.arc(size / 2, size / 2, 0, degreesToRadians(angle + 1), degreesToRadians(angle - 1));
+        canvasCloneCtx.arc(halfSize, halfSize, 0, degreePlus, degreePlus);
+        canvasCloneCtx.arc(halfSize, halfSize, halfSize + 1, degreePlus, degreePlus);
+        canvasCloneCtx.arc(halfSize, halfSize, halfSize + 1, degreePlus, degreeMinus);
+        canvasCloneCtx.arc(halfSize, halfSize, 0, degreePlus, degreeMinus);
         canvasCloneCtx.closePath();
         canvasCloneCtx.fill();
         //Draw carved-put piece on main canvas
         ctx.drawImage(canvasClone, 0, 0);
     }
+    //ctx.drawImage(canvasClone, 0, 0);
     //return main canvas
     return canvas;
 }
@@ -210,14 +227,6 @@ function createWheel() {
     }
   };
 
-  function sendColor(values){
-    $.post("/setValues",
-    values,
-    function(data, status){
-      //alert("Data: " + data + "\nStatus: " + status);
-    });
-  }
-
   //Bind mouse event
   colorWheel.onmousemove = colorWheelMouse;
   colorWheel.onclick = colorWheelClick;
@@ -226,3 +235,13 @@ function createWheel() {
   colorWheel.ontouchstart = colorWheelTouchStart;
   colorWheel.addEventListener("touchcancel", function(evt){evt.preventDefault()});
 }
+
+// Update the current slider value (each time you drag the slider handle)
+document.getElementById("colorBrightnessRangeId").onchange = function() {
+  var brightnessValue = {
+    lhbr: document.getElementById("colorBrightnessRangeId").value
+  }
+  sendColor(brightnessValue);
+}
+
+fadeOutInEffect("loadingSreenId","mainDivId");

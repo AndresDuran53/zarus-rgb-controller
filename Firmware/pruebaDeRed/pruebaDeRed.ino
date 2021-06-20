@@ -5,7 +5,7 @@
 #define RED_PIN                 12
 #define GREEN_PIN               14
 #define BLUE_PIN                13
-#define MAX_BRIGHTNESS          511
+#define MAX_BRIGHTNESS          718
 #define DEVICE_NAME             "RGB_LED_123"
 #define DEVICE_PASSWORD         "password123"
 #define DEVICE_NAME_COMMAND_NAME          "rcdid"
@@ -20,11 +20,13 @@ RedController redController;
 //-----Variables Definition-----//
 String redName = "Familia_Duran";
 String pass = "rodriguez";
+int actualBrightness = MAX_BRIGHTNESS/2;
+String actualHexValue = "#000000";
 
 void setupLogger() {
   Serial.begin(115200);
   Serial.println();
-  Logger::systemLogLevel = Logger::NONE_LOG;
+  Logger::systemLogLevel = Logger::DEBUG_LOG;
   Logger::log("Starting Systems...", Logger::INFO_LOG);
   Logger::log("The Logger level is: " + String(Logger::systemLogLevel), Logger::INFO_LOG);
   Logger::log("DEBUG MODE ON", Logger::DEBUG_LOG);
@@ -52,6 +54,9 @@ void fillCommonData() {
   });
   CommonData::createCommonData("red_color_value", "rgbh", 9, "#000000", "String", [](String hexValue) {
     setColorFromHex(hexValue);
+  });
+  CommonData::createCommonData("actual_brightness", "lhbr", 9, String(actualBrightness), "int", [](String newValue) {
+    setActualBrightness(newValue);
   });
   CommonData::getDataFromEeprom();
 }
@@ -93,16 +98,16 @@ void loop() {
 
 void setColorFromRGB(int r, int g, int b) {
   Logger::log("Setting RGB Value: " + String(r) + String(g) + String(b), Logger::INFO_LOG);
-  r = map(r, 0, 255, 0, MAX_BRIGHTNESS);
-  g = map(g, 0, 255, 0, MAX_BRIGHTNESS);
-  b = map(b, 0, 255, 0, MAX_BRIGHTNESS);
+  r = map(r, 0, 255, 0, actualBrightness);
+  g = map(g, 0, 255, 0, actualBrightness);
+  b = map(b, 0, 255, 0, actualBrightness);
   analogWrite(RED_PIN, r);
   analogWrite(GREEN_PIN, g);
   analogWrite(BLUE_PIN, b);
 }
 
 void setColorFromHex(String hexValue) {
-
+  actualHexValue = hexValue;
   Logger::log("Setting Hex Value: " + hexValue, Logger::DEBUG_LOG);
   int number = (int) strtol( &hexValue[1], NULL, 16);
   int r = number >> 16;
@@ -110,4 +115,10 @@ void setColorFromHex(String hexValue) {
   int b = number & 0xFF;
   setColorFromRGB(r, g, b);
 
+}
+
+void setActualBrightness(String newValue){
+  int newValueMapped = map(newValue.toInt(), 0, 100, 0, MAX_BRIGHTNESS);
+  actualBrightness = newValueMapped;
+  setColorFromHex(actualHexValue);
 }
