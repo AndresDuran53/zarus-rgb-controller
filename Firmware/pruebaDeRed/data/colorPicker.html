@@ -5,17 +5,24 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="loadingScreen.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css" onload="this.media='all'">
 		<noscript>
 		  <link rel="stylesheet" href="style.css" media="screen">
 		</noscript>
-		<link href="zarus.css" rel="stylesheet">
-    <link href="colorPicker.css?ver=0.0.0.0.1" rel="stylesheet">
-    <link href="loadingScreen.css" rel="stylesheet">
+    <link rel="stylesheet" href="zarus.css" onload="this.media='all'">
+		<noscript>
+		  <link rel="stylesheet" href="zarus.css" media="screen">
+		</noscript>
+    <link rel="stylesheet" href="colorPicker.css" onload="this.media='all'">
+		<noscript>
+		  <link rel="stylesheet" href="colorPicker.css" media="screen">
+		</noscript>
+
   </head>
   <body onload="createWheel()" class="bg-dark">
     <div id="loadingSreenId" class="loading">
-      <h2 id="loadingTitle">Loading Screen</h2>
+      <h2 id="loadingTitle">Loading</h2>
       <span></span>
       <span></span>
       <span></span>
@@ -115,8 +122,8 @@
     var mainDivId = document.getElementById("mainDivId");
     mainDivId.style.opacity = 0;
   </script>
-  <script src="jquery.min.js"></script>
   <script src="loadingScreen.js"></script>
+  <script src="jquery.min.js"></script>
 	<script src="./js/bootstrap.bundle.min.js"></script>
   <script src="colorPicker.js"></script>
 </html>

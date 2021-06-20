@@ -234,6 +234,7 @@ function createWheel() {
   colorWheel.ontouchend = colorWheelTouchEnd;
   colorWheel.ontouchstart = colorWheelTouchStart;
   colorWheel.addEventListener("touchcancel", function(evt){evt.preventDefault()});
+  fadeOutInEffect("loadingSreenId","mainDivId");
 }
 
 // Update the current slider value (each time you drag the slider handle)
@@ -243,5 +244,3 @@ document.getElementById("colorBrightnessRangeId").onchange = function() {
   }
   sendColor(brightnessValue);
 }
-
-fadeOutInEffect("loadingSreenId","mainDivId");
