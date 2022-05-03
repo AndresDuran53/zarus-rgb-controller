@@ -1,9 +1,11 @@
 :root {
     --zarus-black: #0F0F0D;
+    --zarus-gray-light: #657075;
     --zarus-gray: #3C3C3B;
     --zarus-white: #DADADA;
     --zarus-background: #1D1D1D;
     --zarus-complement: #00A69C;
+    --zarus-complement-dark: #008078;
     --zarus-complement-green: #0C9981;
     --zarus-text-muted: #707070;
 }
@@ -23,6 +25,11 @@ body {
 
 nav{
   text-align: left;
+}
+
+.container-reduced {
+  display: inline-block;
+  min-width: 340px;
 }
 
 .bg-dark {

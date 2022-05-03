@@ -1,6 +1,7 @@
-<html lang="en">
-	<!doctype html>
+<!doctype html>
+<html lang="es">
 	<head>
+		<title>Red Settings</title>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,45 +9,79 @@
 		<noscript>
 		  <link rel="stylesheet" href="style.css" media="screen">
 		</noscript>
-		<link href="zarus.css" rel="stylesheet">
-		<link href="form-validation.css" rel="stylesheet">
+    <link rel="stylesheet" href="zarus.css" onload="this.media='all'">
+		<noscript>
+		  <link rel="stylesheet" href="zarus.css" media="screen">
+		</noscript>
+		<link rel="stylesheet" href="form-validation.css" onload="this.media='all'">
+		<noscript>
+		  <link rel="stylesheet" href="form-validation.css" media="screen">
+		</noscript>
 	</head>
-	<body class="bg-dark">
-	<div class="container">
-		<div class="py-5 text-center">
 
-			<div class="mx-auto">
-				<form action="/setValues" method="get" class="needs-validation" novalidate>
-					<div class="card-body text-light bg-dark" style="text-align: left;">
-						<h5 class="mb-3 title-zarus">Credenciales de tu red wifi</h5>
-							<div class="col-mb-3" "title-zarus">
-								<label for="ssid">Nombre de la red wifi</label>
-								<input type="text" class="form-control" id="rcsid" name="rcsid" placeholder="SSID" value="" required>
-								<div class="invalid-feedback">
-									Debe indicar el nombre de la red wifi.
-								</div>
+	<body class="bg-dark">
+		<div id="mainDivId">
+			<nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background: #333333">
+        <img src="img/Zarus_iso_blanco.svg" alt="" width="50">
+        <a class="navbar-brand">Red Settings</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="colorPicker.html">Color Picker</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Red Settings <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="deviceSettings.html">Device Settings</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="tokenSettings.html">Token Settings</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+			<div class="container">
+				<div class="py-5 text-center container-reduced">
+					<div class="mx-auto">
+						<form action="/setValues" method="get" class="needs-validation" novalidate>
+							<div class="card-body text-light bg-dark" style="text-align: left;">
+								<h5 class="mb-3 title-zarus">Credenciales de tu red wifi</h5>
+									<div class="col-mb-3" "title-zarus">
+										<label for="ssid">Nombre de la red wifi</label>
+										<input type="text" class="form-control" id="rcsid" name="rcsid" placeholder="SSID" value="" required>
+										<div class="invalid-feedback">
+											Debe indicar el nombre de la red wifi.
+										</div>
+									</div>
+									<div class="col-mb-3">
+										<label for="password">Contraseña de la red wifi</label>
+										<input type="password" class="form-control" id="rcpid" name="rcpid" placeholder="Contraseña" value="" required>
+										<div class="invalid-feedback">
+											Debe indicar la contraseña correspondiente de la red wifi.
+										</div>
+									</div>
 							</div>
-							<div class="col-mb-3">
-								<label for="password">Contraseña de la red wifi</label>
-								<input type="password" class="form-control" id="rcpid" name="rcpid" placeholder="Contraseña" value="" required>
-								<div class="invalid-feedback">
-									Debe indicar la contraseña correspondiente de la red wifi.
-								</div>
+							<div class="card-body bg-dark border-dark">
+								<button class="btn btn-zarus btn-lg btn-block" type="submit">Guardar</button>
+								<button class="btn btn-outline-gray btn-lg btn-block" type="cancel" onclick="window.history.back();return false;">Cancel</button>
 							</div>
+						</form>
 					</div>
-					<div class="bg-dark border-dark">
-						<button class="btn btn-zarus btn-lg btn-block" type="submit">Guardar</button>
-						<button class="btn btn-outline-gray btn-lg btn-block" type="cancel" onclick="window.history.back();return false;">Cancel</button>
-					</div>
-				</form>
+					<footer class="my-5 pt-5 text-muted text-center text-small">
+						<p class="mb-1">&copy; Zarus Laboratories</p>
+					</footer>
+				</div>
 			</div>
-			<footer class="my-5 pt-5 text-muted text-center text-small">
-				<p class="mb-1">&copy; Zarus Laboratories</p>
-			</footer>
-		</div>
+			<script src="jquery.min.js"></script>
+			<script src="./js/bootstrap.bundle.min.js"></script>
+			<script src="form-validation.js"></script>
 	</div>
-	<script src="jquery.min.js"></script>
-	<script src="./js/bootstrap.bundle.min.js"></script>
-	<script src="form-validation.js"></script>
 	</body>
 </html>
