@@ -108,10 +108,18 @@ function generateColorWheel() {
 }
 
 function createWheel() {
+  //MoveSlider
+  var size = document.getElementById('colorDiv').clientWidth * 0.7 ;
+  var halfSize = size/2;
+  var colorShowDiv = document.getElementById("colorShowDiv");
+  colorShowDiv.setAttribute("style","top: "+halfSize+"px;");
+
   //Get color wheel canvas
   var colorWheel = generateColorWheel();
+
   //Add color wheel canvas to document
   document.getElementById('colorDiv').appendChild(colorWheel);
+
   //Add ouput field
   var p = document.getElementById("colorPickerTextId");
 
@@ -136,6 +144,7 @@ function createWheel() {
     ctx.fillRect(0, 0, canvasShowColor.width, canvasShowColor.height);
     var colorBrightnessRange = document.getElementById("colorBrightnessRangeId");
     colorBrightnessRange.style.backgroundImage = 'linear-gradient(to right, #0F0F0D, rgb(' + imgData.red + ',' + imgData.green + ',' + imgData.blue + '))';
+    colorBrightnessRange.background = 'rgb(0,0,0)';
   }
 
   changeColorViewer(initValue);

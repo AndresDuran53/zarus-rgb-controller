@@ -5,21 +5,18 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="loadingScreen.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css" onload="this.media='all'">
+    <link rel="stylesheet" href="css/bootstrap.min.css" onload="this.media='all'">
+		<link rel="stylesheet" href="css/zarus.css" onload="this.media='all'">
+    <link rel="stylesheet" href="css/loadingScreen.css">
+    <link rel="stylesheet" href="css/colorPicker.css" onload="this.media='all'">
 		<noscript>
-		  <link rel="stylesheet" href="style.css" media="screen">
-		</noscript>
-    <link rel="stylesheet" href="zarus.css" onload="this.media='all'">
-		<noscript>
-		  <link rel="stylesheet" href="zarus.css" media="screen">
-		</noscript>
-    <link rel="stylesheet" href="colorPicker.css" onload="this.media='all'">
-		<noscript>
-		  <link rel="stylesheet" href="colorPicker.css" media="screen">
+		  <link rel="stylesheet" href="css/bootstrap.min.css" media="screen">
+			<link rel="stylesheet" href="css/zarus.css" media="screen">
+      <link rel="stylesheet" href="css/loadingScreen.css">
+      <link rel="stylesheet" href="css/colorPicker.css" media="screen">
 		</noscript>
   </head>
-  
+
   <body onload="createWheel()" class="bg-dark">
     <div id="loadingSreenId" class="loading">
       <h2 id="loadingTitle">Loading</h2>
@@ -32,86 +29,64 @@
       <span></span>
     </div>
     <div id="mainDivId">
-      <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background: #333333">
-        <img src="img/Zarus_iso_blanco.svg" alt="" width="50">
-        <a class="navbar-brand">Color Picker</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Color Picker <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="redSettings.html">Red Settings</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="deviceSettings.html">Device Settings</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="tokenSettings.html">Token Settings</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
       <div class="container">
     		<div class="py-2 text-center">
     			<!--<img src="img/Zarus_logo_blanco.svg" alt="" width="70">-->
-          <div class="mx-auto row">
-            <div id="colorDiv" class="color-space col-7">
-            </div>
-            <div id="colorShowDiv" class="color-space col-3 row">
-              <div class="col" style="max-height: 80px; position: absolute; bottom: 33%;">
-                <p style="display: none" id="colorPickerTextId">RGB: 0,0,0</p>
-                <canvas id="canvasShowColorId"></canvas>
-                <input type="range" min="0" max="100" value="50" class="slider" id="colorBrightnessRangeId">
+          <div class="container-fluid" style="padding-top: 50px;">
+            <div class="row">
+              <div id="colorDiv" class="col-xs-7">
+              </div>
+              <div id="colorShowDiv" class="col-xs-3">
+                <div class="col" style="max-height: 80px; position: absolute;">
+                  <p style="display: none" id="colorPickerTextId">RGB: 0,0,0</p>
+                  <canvas id="canvasShowColorId"></canvas>
+                  <input type="range" min="0" max="100" value="50" class="slider" id="colorBrightnessRangeId">
+                </div>
               </div>
             </div>
           </div>
           <br>
 
-          <div class="mx-auto row">
-            <div class="col-6">
-              <div class="col-12">
-                <button class="btn btn-outline-gray btn-block btn-mg" type="submit">Solid</button>
+          <div class="container-fluid" style="margin:20px">
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="">
+                  <button class="btn btn-outline-gray btn-block btn-mg" type="submit">Solid</button>
+                </div>
+                <div class="">
+                  <button class="btn btn-outline-gray btn-block btn-mg" type="submit">Breathing</button>
+                </div>
+                <div class="">
+                  <button class="btn btn-outline-gray btn-block btn-mg" type="submit">Attack</button>
+                </div>
+                <div class="">
+                  <button class="btn btn-outline-gray btn-block btn-mg" type="submit">Blink</button>
+                </div>
+                <div class="">
+                  <input type="range" min="0" max="100" value="50" class="slider" id="patronRangeId">
+                </div>
               </div>
-              <div class="col-12">
-                <button class="btn btn-outline-gray btn-block btn-mg" type="submit">Breathing</button>
-              </div>
-              <div class="col-12">
-                <button class="btn btn-outline-gray btn-block btn-mg" type="submit">Attack</button>
-              </div>
-              <div class="col-12">
-                <button class="btn btn-outline-gray btn-block btn-mg" type="submit">Blink</button>
-              </div>
-              <div class="col-12">
-                <input type="range" min="0" max="100" value="50" class="slider" id="patronRangeId">
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="col-12">
-                <button class="btn btn-outline-gray btn-block btn-mg" type="submit">Fade</button>
-              </div>
-              <div class="col-12">
-                <button class="btn btn-outline-gray btn-block btn-mg" type="submit">Wheel</button>
-              </div>
-              <div class="col-12">
-                <button class="btn btn-outline-gray btn-block btn-mg" type="submit">Disco</button>
-              </div>
-              <div class="col-12">
-                <button class="btn btn-outline-gray btn-block btn-mg" type="submit">NightClub</button>
-              </div>
-              <div class="col-12">
-                <input type="range" min="0" max="100" value="50" class="slider" id="colorPatronRangeId">
+              <div class="col-xs-6">
+                <div class="">
+                  <button class="btn btn-outline-gray btn-block btn-mg" type="submit">Fade</button>
+                </div>
+                <div class="">
+                  <button class="btn btn-outline-gray btn-block btn-mg" type="submit">Wheel</button>
+                </div>
+                <div class="">
+                  <button class="btn btn-outline-gray btn-block btn-mg" type="submit">Disco</button>
+                </div>
+                <div class="">
+                  <button class="btn btn-outline-gray btn-block btn-mg" type="submit">NightClub</button>
+                </div>
+                <div class="">
+                  <input type="range" min="0" max="100" value="50" class="slider" id="colorPatronRangeId">
+                </div>
               </div>
             </div>
           </div>
-
-          <footer class="my-5 zarus-iot-footer text-muted text-center">
+          <button class="btn btn-zarus btn-lg btn-block" type="cancel" onclick="window.location='index.html'">Back to Main</button>
+          <footer class="my-5 zarus-iot-footer text-muted text-center" style="margin:20px">
             <p class="mb-1">&copy; Zarus Laboratories</p>
           </footer>
         </div>
@@ -122,8 +97,8 @@
     var mainDivId = document.getElementById("mainDivId");
     mainDivId.style.opacity = 0;
   </script>
-  <script src="loadingScreen.js"></script>
-  <script src="jquery.min.js"></script>
-	<script src="./js/bootstrap.bundle.min.js"></script>
-  <script src="colorPicker.js"></script>
+  <script src="js/loadingScreen.js"></script>
+  <script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+  <script src="js/colorPicker.js"></script>
 </html>
