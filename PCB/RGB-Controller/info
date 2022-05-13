@@ -5,7 +5,7 @@
   "title": "RGB-Controller",
   "uuid": "bb151465107cbcb66838af9b7f345379",
   "created_at": "2021-06-23 20:01:40",
-  "updated_at": "2022-05-04 17:55:37",
+  "updated_at": "2022-05-13 16:11:14",
   "documents": [
     {
       "uuid": "1b187e9b302b48b793f873c6e7c0f0bf",
@@ -14,11 +14,11 @@
       "docType": "1",
       "master": "",
       "thumb": "/images/thumb-default.png",
-      "updateTime": 1651539308,
+      "updateTime": 1652467133,
       "createTime": 1624497770,
       "histories": [],
       "created_at": "2021-06-23 19:22:50",
-      "updated_at": "2022-05-02 18:55:08",
+      "updated_at": "2022-05-13 12:38:53",
       "BOM": [
         [
           "Value",
@@ -219,18 +219,17 @@
           }
         ],
         [
-          "AMS1117-5.0",
+          "LM7805-5V",
           1,
-          "SOT-223_L6.5-W3.5-P2.30-LS7.0-BR",
-          "U3",
+          "TO-252-2_L6.6-W6.1-P4.58-LS9.9-TL",
+          "U4",
           {
             "BOM_Supplier": "LCSC",
-            "BOM_Manufacturer": "AMS",
-            "BOM_Manufacturer Part": "AMS1117-5.0",
-            "BOM_Supplier Part": "C6187",
-            "BOM_JLCPCB Part Class": "Basic Part",
-            "puuid": "4ca399a3887148eeab92cd3a98a855b3",
-            "uuid": "245526444bbe85b260f4b99a6aa28864"
+            "BOM_Supplier Part": "C9900008050",
+            "BOM_Manufacturer": "null",
+            "BOM_Manufacturer Part": "LM7805-5V",
+            "puuid": "c4e7516f48874620b9c81b90bd9fc803",
+            "uuid": "eb159b410d3b432a8a985b63485fbb87"
           }
         ]
       ],
@@ -247,8 +246,8 @@
         "e7ed4677edf991c3ce925499eff63e7c": 3,
         "3f36348ec05ee4392d9b4650c680cc0f": 3,
         "3863fbfe06664d5d90ee297e8dabad5c": 3,
-        "245526444bbe85b260f4b99a6aa28864": 1,
-        "588dac9f81df8f83843513972963b454": 1
+        "588dac9f81df8f83843513972963b454": 1,
+        "eb159b410d3b432a8a985b63485fbb87": 1
       }
     },
     {
@@ -259,12 +258,13 @@
       "docType": "3",
       "master": "",
       "thumb": "/images/thumb-default.png",
-      "updateTime": 1651708537,
+      "updateTime": 1652479874,
       "createTime": 1624498158,
       "histories": [],
       "created_at": "2021-06-23 19:29:18",
-      "updated_at": "2022-05-04 17:55:37",
+      "updated_at": "2022-05-13 16:11:14",
       "components": {
+        "c4e7516f48874620b9c81b90bd9fc803": 1,
         "1337670005c6484c999f9b4c272ee9fe": 1,
         "31a453d5adfc45cea944a6450adf2918": 1,
         "4a81c52f384a4e1ba3f57a3703e0f5f9": 3,
@@ -274,7 +274,6 @@
         "19b03e126b4149478e4cdb096830b48b": 1,
         "02ae667aca734971be8a5f58143dd564": 1,
         "69fc9196cbf648b68d5c82f95280b218": 3,
-        "4ca399a3887148eeab92cd3a98a855b3": 1,
         "a153f1f1b51c48ffb6926e46e6a4b33b": 1,
         "8d980e0cb4b8404e96542d2888a244bd": 3,
         "aed8d0473b624a65a7a88afbaa59de4e": 1,
@@ -286,5 +285,5 @@
   "stick": "",
   "sort": [],
   "schfilename": "RGB-Controller.json",
-  "schfilemtime": 1651539308388
+  "schfilemtime": 1652467133203
 }
