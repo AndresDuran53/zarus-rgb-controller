@@ -1,9 +1,23 @@
 #include <IoTController.h>
+#include <IRremoteESP8266.h>
+#include <IRrecv.h>
+#include <IRutils.h>
+#include "RgbRemote.h"
 
 #define RED_PIN                 12
 #define GREEN_PIN               14
 #define BLUE_PIN                13
-#define MAX_BRIGHTNESS          1023
+#define MAX_BRIGHTNESS          1024
+
+String deviceType = "rgb-light";
+String deviceToken = "zzz999";
+uint8_t consoleLevel = 3;
+
+const uint16_t kRecvPin = 5;
+unsigned long key_value = 0;
+IRrecv irrecv(kRecvPin);
+decode_results results;
+RgbRemote rgbRemote(0);
 
 //-----Variables Definition-----//
 int actualBrightness = MAX_BRIGHTNESS;
@@ -13,6 +27,7 @@ void configGPIO() {
   pinMode(RED_PIN, OUTPUT);
   pinMode(GREEN_PIN, OUTPUT);
   pinMode(BLUE_PIN, OUTPUT);
+  pinMode(kRecvPin, INPUT);
 }
 
 void startLights() {
@@ -29,12 +44,17 @@ void startLights() {
 
 void setColorFromRGB(int r, int g, int b) {
   Logger::log("Setting RGB Value: " + String(r) + String(g) + String(b), Logger::INFO_LOG);
-  r = map(r, 0, 255, 0, actualBrightness);
-  g = map(g, 0, 255, 0, actualBrightness);
-  b = map(b, 0, 255, 0, actualBrightness);
-  analogWrite(RED_PIN, r);
-  analogWrite(GREEN_PIN, g);
-  analogWrite(BLUE_PIN, b);
+  Logger::log("Actual Brightness: " + String(actualBrightness), Logger::INFO_LOG);
+  int brightnessDiff = (MAX_BRIGHTNESS - actualBrightness);
+  r = map(r, 255, 0, 0, MAX_BRIGHTNESS);
+  g = map(g, 255, 0, 0, MAX_BRIGHTNESS);
+  b = map(b, 255, 0, 0, MAX_BRIGHTNESS);
+  int r_aux = min(1024, (r + brightnessDiff));
+  int g_aux = min(1024, (g + brightnessDiff));
+  int b_aux = min(1024, (b + brightnessDiff));
+  analogWrite(RED_PIN, r_aux);
+  analogWrite(GREEN_PIN, g_aux);
+  analogWrite(BLUE_PIN, b_aux);
 }
 
 void setColorFromHex(String hexValue) {
@@ -49,18 +69,69 @@ void setColorFromHex(String hexValue) {
 
 void setActualBrightness(String newValue) {
   int newValueMapped = map(newValue.toInt(), 0, 100, 0, MAX_BRIGHTNESS);
+  newValueMapped = min(MAX_BRIGHTNESS, newValueMapped);
   actualBrightness = newValueMapped;
   setColorFromHex(actualHexValue);
 }
 
-void IoTConfig(){
-  IoTController::setup("rgb-light",3);
-  IoTController::addCommonData("red_color_value", "rgbh", 9, "#000000", "String", [](String hexValue) {setColorFromHex(hexValue);});
-  IoTController::addCommonData("actual_brightness", "lhbr", 9, String(actualBrightness), "int", [](String newValue) {setActualBrightness(newValue);});
+void verifyIRrecieved(String value) {
+  if (value == "ON") {
+    setActualBrightness("100");
+  }
+  else if (value == "OFF") {
+    setActualBrightness("0");
+  }
+  else if (value == "BRILLO_ARRIBA") {
+    int actualBrightnessAux = map(actualBrightness, 0, MAX_BRIGHTNESS, 0, 100);
+    setActualBrightness(String(actualBrightnessAux + 10));
+  }
+  else if (value == "BRILLO_ABAJO") {
+    int actualBrightnessAux = map(actualBrightness, 0, MAX_BRIGHTNESS, 0, 100);
+    setActualBrightness(String(actualBrightnessAux - 10));
+  }
+  else if (value == "FLASH") {
+    //ToDo
+  }
+  else if (value == "STROBE") {
+    //ToDo
+  }
+  else if (value == "FADE") {
+    //ToDo
+  }
+  else if (value == "SMOOTH") {
+    //ToDo
+  }
+  else if (value == "Ninguno") {
+    return;
+  }
+  else{
+   setColorFromHex(value); 
+  }
+}
+
+void checkIRrecieved() {
+  if (irrecv.decode(&results)) {
+    String valueRecieved = rgbRemote.getIRDecodeValue(results.value);
+    Logger::log("New IR value recieved: " + String(valueRecieved), Logger::INFO_LOG);
+    verifyIRrecieved(valueRecieved);
+    irrecv.resume();  // Receive the next value
+  }
+}
+
+void IoTConfig() {
+  IoTController::addTimer(100,checkIRrecieved);
+  IoTController::setup(deviceType,consoleLevel,deviceToken);
+  IoTController::addCommonData("red_color_value", "rgbh", 9, "#000000", "String", [](String hexValue) {
+    setColorFromHex(hexValue);
+  });
+  IoTController::addCommonData("actual_brightness", "lhbr", 9, String(actualBrightness), "int", [](String newValue) {
+    setActualBrightness(newValue);
+  });
   IoTController::init();
 }
 
 void setup() {
+  irrecv.enableIRIn();
   IoTConfig();
   configGPIO();
   startLights();
