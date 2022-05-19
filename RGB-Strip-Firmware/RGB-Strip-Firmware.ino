@@ -45,8 +45,8 @@ void startLights() {
 }
 
 void setColorFromRGB(int r, int g, int b) {
-  Logger::log("Setting RGB Value: " + String(r) + String(g) + String(b), Logger::INFO_LOG);
-  Logger::log("Actual Brightness: " + String(actualBrightness), Logger::INFO_LOG);
+  Logger::log("Setting RGB Value: " + String(r) + String(g) + String(b), Logger::DEBUG_LOG);
+  Logger::log("Actual Brightness: " + String(actualBrightness), Logger::DEBUG_LOG);
   r = map((r * (actualBrightness / 100.0)), 255, 0, 0, 1024);
   g = map((g * (actualBrightness / 100.0)), 255, 0, 0, 1024);
   b = map((b * (actualBrightness / 100.0)), 255, 0, 0, 1024);
@@ -81,16 +81,28 @@ void setActualBrightness(String newValue) {
 void stepAnimation() {
   switch (display_mode) {
     case 1:
-    flashEffect();
+      flashEffect();
       break;
     case 2:
-    strobeEffect();
+      strobeEffect();
       break;
     case 3:
+      setActualBrightness(String(100));
       fadeEffect();
       break;
     case 4:
+      setActualBrightness(String(100));
       smoothEffect();
+      break;
+    case 5:
+      breathEffect();
+      break;
+    case 6:
+      attackEffect();
+      break;
+    case 7:
+      setActualBrightness(String(100));
+      nightClubEffect();
       break;
     default:
       break;
@@ -98,9 +110,13 @@ void stepAnimation() {
   display_step++;
 }
 
+void setEffect(String newValue) {
+  display_mode = newValue.toInt();
+}
+
 void flashEffect() {
-  int WheelPos = (display_step % 255) / 4;
-  int WheelPos2 = (display_step % 80) / 20;
+  int WheelPos = (display_step % 255);
+  int WheelPos2 = (display_step % 35);
   int red = 0;
   int green = 0;
   int blue = 0;
@@ -122,22 +138,18 @@ void flashEffect() {
     green = 255 - WheelPos * 3;
     blue = 0;
   }
-  String hexValue = rgbToHex(red,green,blue);
-  setColorFromHex(hexValue);
-  if(WheelPos2%2==0){
-    setActualBrightness(String(100));
-  }
-  else{
-    setActualBrightness(String(0));
+  String hexValue = rgbToHex(red, green, blue);
+  if (WheelPos2 == 0) {
+    setColorFromHex(hexValue);
   }
 } //flashEffect()
 
 void strobeEffect() {
   int WheelPos = (display_step % 255) / 8;
-  if(WheelPos%2==0){
+  if (WheelPos % 2 == 0) {
     setActualBrightness(String(100));
   }
-  else{
+  else {
     setActualBrightness(String(0));
   }
 } //strobeEffect()
@@ -165,7 +177,7 @@ void fadeEffect() {
     green = 255 - WheelPos * 3;
     blue = 0;
   }
-  String hexValue = rgbToHex(red,green,blue);
+  String hexValue = rgbToHex(red, green, blue);
   setColorFromHex(hexValue);
 } //fadeEffect()
 
@@ -192,19 +204,69 @@ void smoothEffect() {
     green = 255 - WheelPos * 3;
     blue = 0;
   }
-  String hexValue = rgbToHex(red,green,blue);
+  String hexValue = rgbToHex(red, green, blue);
   setColorFromHex(hexValue);
 } //smoothEffect()
+
+void breathEffect() {
+  int WheelPos = (display_step % 255);
+  int WheelPos2 = WheelPos / 8;
+  if (WheelPos > 167) {
+    WheelPos = 251 - WheelPos + 42;
+  }
+  WheelPos = map(WheelPos, 42, 125, 0, 100);
+  WheelPos = min(100, max(0, WheelPos));
+  if (WheelPos2 % 2 == 0) {
+    setActualBrightness(String(WheelPos));
+  }
+} //strobeEffect()
+
+void attackEffect() {
+  int WheelPos = (display_step % 63)*4;
+  int WheelPos2 = WheelPos / 8;
+  WheelPos = map(WheelPos, 42, 125, 100, 0);
+  WheelPos = min(100, max(0, WheelPos));
+  if (WheelPos2 % 2 == 0) {
+    setActualBrightness(String(WheelPos));
+  }
+} //strobeEffect()
+
+void nightClubEffect() {
+  int WheelPos = (display_step % 64) * 4;
+  int red = 0;
+  int green = 0;
+  int blue = 0;
+  WheelPos = 255 - WheelPos;
+  if (WheelPos < 85) {
+    red = 255 - WheelPos * 3;
+    green = 0;
+    blue = WheelPos * 3;
+  }
+  else if (WheelPos < 170) {
+    WheelPos -= 85;
+    red = 0;
+    green = WheelPos * 3;
+    blue = 255 - WheelPos * 3;
+  }
+  else {
+    WheelPos -= 170;
+    red = WheelPos * 3;
+    green = 255 - WheelPos * 3;
+    blue = 0;
+  }
+  String hexValue = rgbToHex(red, green, blue);
+  setColorFromHex(hexValue);
+} //fadeEffect()
 
 //---------------------------------//
 
 void verifyIRrecieved(String value) {
   if (value == "ON") {
-    display_mode = 0;
+    setEffect("0");
     setActualBrightness("100");
   }
   else if (value == "OFF") {
-    display_mode = 0;
+    setEffect("0");
     setActualBrightness("0");
   }
   else if (value == "BRILLO_ARRIBA") {
@@ -216,26 +278,26 @@ void verifyIRrecieved(String value) {
     setActualBrightness(String(actualBrightnessAux - 10));
   }
   else if (value == "FLASH") {
-    display_mode = 1;
+    setEffect("1");
     //ToDo
   }
   else if (value == "STROBE") {
-    display_mode = 2;
+    setEffect("2");
     //ToDo
   }
   else if (value == "FADE") {
-    display_mode = 3;
+    setEffect("3");
     //ToDo
   }
   else if (value == "SMOOTH") {
-    display_mode = 4;
+    setEffect("4");
     //ToDo
   }
   else if (value == "Ninguno") {
     return;
   }
   else {
-    display_mode = 0;
+    setEffect("0");
     setColorFromHex(value);
   }
 }
@@ -243,7 +305,7 @@ void verifyIRrecieved(String value) {
 void checkIRrecieved() {
   if (irrecv.decode(&results)) {
     String valueRecieved = rgbRemote.getIRDecodeValue(results.value);
-    Logger::log("New IR value recieved: " + String(valueRecieved), Logger::INFO_LOG);
+    Logger::log("New IR value recieved: " + String(valueRecieved), Logger::DEBUG_LOG);
     verifyIRrecieved(valueRecieved);
     irrecv.resume();  // Receive the next value
   }
@@ -258,6 +320,9 @@ void IoTConfig() {
   });
   IoTController::addCommonData("actual_brightness", "lhbr", 9, String(actualBrightness), "int", [](String newValue) {
     setActualBrightness(newValue);
+  });
+  IoTController::addCommonData("display_mode", "dsmd", 2, "0", "String", [](String newValue) {
+    setEffect(newValue);
   });
   IoTController::init();
 }
@@ -275,10 +340,10 @@ void loop() {
   //delay(10);
 }
 
-String rgbToHex(int red, int green, int blue){
+String rgbToHex(int red, int green, int blue) {
   char hex[8] = {0};
-  sprintf(hex,"#%02X%02X%02X",red,green,blue);
-  hex[7]='\0';
+  sprintf(hex, "#%02X%02X%02X", red, green, blue);
+  hex[7] = '\0';
   String hexValue = String(hex);
   return hexValue;
 }

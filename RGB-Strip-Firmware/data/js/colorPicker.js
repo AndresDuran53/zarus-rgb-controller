@@ -253,3 +253,60 @@ document.getElementById("colorBrightnessRangeId").onchange = function() {
   }
   sendColor(brightnessValue);
 }
+
+
+function sendSolid() {
+  var colorValues = {
+    dsmd: '0'
+  }
+  sendColor(colorValues);
+}
+
+function sendBlink() {
+  var colorValues = {
+    dsmd: '2'
+  }
+  sendColor(colorValues);
+}
+
+function sendFade() {
+  var colorValues = {
+    dsmd: '3'
+  }
+  sendColor(colorValues);
+}
+
+function sendWheel() {
+  var colorValues = {
+    dsmd: '4'
+  }
+  sendColor(colorValues);
+}
+
+function sendDisco() {
+  var colorValues = {
+    dsmd: '1'
+  }
+  sendColor(colorValues);
+}
+
+function sendBreathing() {
+  var colorValues = {
+    dsmd: '5'
+  }
+  sendColor(colorValues);
+}
+
+function sendAttack() {
+  var colorValues = {
+    dsmd: '6'
+  }
+  sendColor(colorValues);
+}
+
+function sendNightClub() {
+  var colorValues = {
+    dsmd: '7'
+  }
+  sendColor(colorValues);
+}
