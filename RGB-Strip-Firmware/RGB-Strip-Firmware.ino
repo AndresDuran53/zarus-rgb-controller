@@ -7,7 +7,7 @@
 #define RED_PIN                 12
 #define GREEN_PIN               14
 #define BLUE_PIN                13
-#define MAX_BRIGHTNESS          1024
+#define MAX_BRIGHTNESS          100
 
 String deviceType = "rgb-light";
 String deviceToken = "zzz999";
@@ -45,13 +45,12 @@ void startLights() {
 void setColorFromRGB(int r, int g, int b) {
   Logger::log("Setting RGB Value: " + String(r) + String(g) + String(b), Logger::INFO_LOG);
   Logger::log("Actual Brightness: " + String(actualBrightness), Logger::INFO_LOG);
-  int brightnessDiff = (MAX_BRIGHTNESS - actualBrightness);
-  r = map(r, 255, 0, 0, MAX_BRIGHTNESS);
-  g = map(g, 255, 0, 0, MAX_BRIGHTNESS);
-  b = map(b, 255, 0, 0, MAX_BRIGHTNESS);
-  int r_aux = min(1024, (r + brightnessDiff));
-  int g_aux = min(1024, (g + brightnessDiff));
-  int b_aux = min(1024, (b + brightnessDiff));
+  r = map((r * (actualBrightness/100.0)), 255, 0, 0, 1024);
+  g = map((g * (actualBrightness/100.0)), 255, 0, 0, 1024);
+  b = map((b * (actualBrightness/100.0)), 255, 0, 0, 1024);
+  int r_aux = min(1024, r);
+  int g_aux = min(1024, g);
+  int b_aux = min(1024, b);
   analogWrite(RED_PIN, r_aux);
   analogWrite(GREEN_PIN, g_aux);
   analogWrite(BLUE_PIN, b_aux);
@@ -68,8 +67,10 @@ void setColorFromHex(String hexValue) {
 }
 
 void setActualBrightness(String newValue) {
-  int newValueMapped = map(newValue.toInt(), 0, 100, 0, MAX_BRIGHTNESS);
-  newValueMapped = min(MAX_BRIGHTNESS, newValueMapped);
+  Logger::log("Setting new Brightness: " + String(newValue), Logger::DEBUG_LOG);
+  int newValueMapped = newValue.toInt();
+  newValueMapped = max(0,min(100, newValueMapped));
+  newValueMapped = max(0,newValueMapped);
   actualBrightness = newValueMapped;
   setColorFromHex(actualHexValue);
 }
@@ -105,7 +106,7 @@ void verifyIRrecieved(String value) {
     return;
   }
   else{
-   setColorFromHex(value); 
+   setColorFromHex(value);
   }
 }
 
