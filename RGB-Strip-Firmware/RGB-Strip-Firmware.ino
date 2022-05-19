@@ -22,6 +22,8 @@ RgbRemote rgbRemote(0);
 //-----Variables Definition-----//
 int actualBrightness = MAX_BRIGHTNESS;
 String actualHexValue = "#000000";
+int display_step = 0;
+int display_mode = 0;
 
 void configGPIO() {
   pinMode(RED_PIN, OUTPUT);
@@ -45,9 +47,9 @@ void startLights() {
 void setColorFromRGB(int r, int g, int b) {
   Logger::log("Setting RGB Value: " + String(r) + String(g) + String(b), Logger::INFO_LOG);
   Logger::log("Actual Brightness: " + String(actualBrightness), Logger::INFO_LOG);
-  r = map((r * (actualBrightness/100.0)), 255, 0, 0, 1024);
-  g = map((g * (actualBrightness/100.0)), 255, 0, 0, 1024);
-  b = map((b * (actualBrightness/100.0)), 255, 0, 0, 1024);
+  r = map((r * (actualBrightness / 100.0)), 255, 0, 0, 1024);
+  g = map((g * (actualBrightness / 100.0)), 255, 0, 0, 1024);
+  b = map((b * (actualBrightness / 100.0)), 255, 0, 0, 1024);
   int r_aux = min(1024, r);
   int g_aux = min(1024, g);
   int b_aux = min(1024, b);
@@ -69,17 +71,140 @@ void setColorFromHex(String hexValue) {
 void setActualBrightness(String newValue) {
   Logger::log("Setting new Brightness: " + String(newValue), Logger::DEBUG_LOG);
   int newValueMapped = newValue.toInt();
-  newValueMapped = max(0,min(100, newValueMapped));
-  newValueMapped = max(0,newValueMapped);
+  newValueMapped = max(0, min(100, newValueMapped));
+  newValueMapped = max(0, newValueMapped);
   actualBrightness = newValueMapped;
   setColorFromHex(actualHexValue);
 }
 
+//Animations
+void stepAnimation() {
+  switch (display_mode) {
+    case 1:
+    flashEffect();
+      break;
+    case 2:
+    strobeEffect();
+      break;
+    case 3:
+      fadeEffect();
+      break;
+    case 4:
+      smoothEffect();
+      break;
+    default:
+      break;
+  }
+  display_step++;
+}
+
+void flashEffect() {
+  int WheelPos = (display_step % 255) / 4;
+  int WheelPos2 = (display_step % 80) / 20;
+  int red = 0;
+  int green = 0;
+  int blue = 0;
+  WheelPos = 255 - WheelPos;
+  if (WheelPos < 85) {
+    red = 255 - WheelPos * 3;
+    green = 0;
+    blue = WheelPos * 3;
+  }
+  else if (WheelPos < 170) {
+    WheelPos -= 85;
+    red = 0;
+    green = WheelPos * 3;
+    blue = 255 - WheelPos * 3;
+  }
+  else {
+    WheelPos -= 170;
+    red = WheelPos * 3;
+    green = 255 - WheelPos * 3;
+    blue = 0;
+  }
+  String hexValue = rgbToHex(red,green,blue);
+  setColorFromHex(hexValue);
+  if(WheelPos2%2==0){
+    setActualBrightness(String(100));
+  }
+  else{
+    setActualBrightness(String(0));
+  }
+} //flashEffect()
+
+void strobeEffect() {
+  int WheelPos = (display_step % 255) / 8;
+  if(WheelPos%2==0){
+    setActualBrightness(String(100));
+  }
+  else{
+    setActualBrightness(String(0));
+  }
+} //strobeEffect()
+
+void fadeEffect() {
+  int WheelPos = display_step % 255;
+  int red = 0;
+  int green = 0;
+  int blue = 0;
+  WheelPos = 255 - WheelPos;
+  if (WheelPos < 85) {
+    red = 255 - WheelPos * 3;
+    green = 0;
+    blue = WheelPos * 3;
+  }
+  else if (WheelPos < 170) {
+    WheelPos -= 85;
+    red = 0;
+    green = WheelPos * 3;
+    blue = 255 - WheelPos * 3;
+  }
+  else {
+    WheelPos -= 170;
+    red = WheelPos * 3;
+    green = 255 - WheelPos * 3;
+    blue = 0;
+  }
+  String hexValue = rgbToHex(red,green,blue);
+  setColorFromHex(hexValue);
+} //fadeEffect()
+
+void smoothEffect() {
+  int WheelPos = (display_step % 1024) / 4;
+  int red = 0;
+  int green = 0;
+  int blue = 0;
+  WheelPos = 255 - WheelPos;
+  if (WheelPos < 85) {
+    red = 255 - WheelPos * 3;
+    green = 0;
+    blue = WheelPos * 3;
+  }
+  else if (WheelPos < 170) {
+    WheelPos -= 85;
+    red = 0;
+    green = WheelPos * 3;
+    blue = 255 - WheelPos * 3;
+  }
+  else {
+    WheelPos -= 170;
+    red = WheelPos * 3;
+    green = 255 - WheelPos * 3;
+    blue = 0;
+  }
+  String hexValue = rgbToHex(red,green,blue);
+  setColorFromHex(hexValue);
+} //smoothEffect()
+
+//---------------------------------//
+
 void verifyIRrecieved(String value) {
   if (value == "ON") {
+    display_mode = 0;
     setActualBrightness("100");
   }
   else if (value == "OFF") {
+    display_mode = 0;
     setActualBrightness("0");
   }
   else if (value == "BRILLO_ARRIBA") {
@@ -91,22 +216,27 @@ void verifyIRrecieved(String value) {
     setActualBrightness(String(actualBrightnessAux - 10));
   }
   else if (value == "FLASH") {
+    display_mode = 1;
     //ToDo
   }
   else if (value == "STROBE") {
+    display_mode = 2;
     //ToDo
   }
   else if (value == "FADE") {
+    display_mode = 3;
     //ToDo
   }
   else if (value == "SMOOTH") {
+    display_mode = 4;
     //ToDo
   }
   else if (value == "Ninguno") {
     return;
   }
-  else{
-   setColorFromHex(value);
+  else {
+    display_mode = 0;
+    setColorFromHex(value);
   }
 }
 
@@ -120,8 +250,9 @@ void checkIRrecieved() {
 }
 
 void IoTConfig() {
-  IoTController::addTimer(100,checkIRrecieved);
-  IoTController::setup(deviceType,consoleLevel,deviceToken);
+  IoTController::addTimer(100, checkIRrecieved);
+  IoTController::addTimer(20, stepAnimation);
+  IoTController::setup(deviceType, consoleLevel, deviceToken);
   IoTController::addCommonData("red_color_value", "rgbh", 9, "#000000", "String", [](String hexValue) {
     setColorFromHex(hexValue);
   });
@@ -140,4 +271,14 @@ void setup() {
 
 void loop() {
   IoTController::loop();
+  //stepAnimation();
+  //delay(10);
+}
+
+String rgbToHex(int red, int green, int blue){
+  char hex[8] = {0};
+  sprintf(hex,"#%02X%02X%02X",red,green,blue);
+  hex[7]='\0';
+  String hexValue = String(hex);
+  return hexValue;
 }
