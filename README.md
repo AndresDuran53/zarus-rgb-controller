@@ -39,7 +39,7 @@ Tools for upload files into the ESP device:
 * ESP8266: [ESP8266fs](https://github.com/esp8266/arduino-esp8266fs-plugin/releases) | ESP32: [ESP32FS](https://github.com/me-no-dev/arduino-esp32fs-plugin/releases)
 
 Libraries:
-* [Red Controller](https://github.com/AndresDuran53/zarus-red-controller/)
+* [Network Controller](https://github.com/AndresDuran53/zarus-network-controller/)
 * [IRremoteESP8266](https://github.com/crankyoldgit/IRremoteESP8266)
 
 ## TO-DO
