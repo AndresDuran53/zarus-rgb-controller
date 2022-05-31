@@ -12,7 +12,7 @@ Look at the [Zarus IoT Hub](https://github.com/AndresDuran53/zarus-iot-app) to g
 1. Download the Zarus IoT Hub application and open it.
 2. Go to the *Devices* tab and click on *Find new device*.
 3. Click on the device that you want to configure and wait until your phone connects.
-4. Insert the SSID and password of your Home Wi-Fi, and click *Save configuration*.
+4. Insert the name and password of your Home Wi-Fi, and click *Save configuration*.
 5. Connect your phone again to your Home Wi-Fi and click *Refresh*.
 6. Click *Scan network* and click the device that you want to add.
 7. Now you can go to the *Home* tab and click the device to start using you new device.
