@@ -21,14 +21,22 @@
 				<div class="principal-form container-reduced">
 					<form action="/setValues" method="get" class="needs-validation" novalidate>
 						<div class="card-body text-light bg-dark" style="text-align: left;">
-							<h3 class="mb-3 title-zarus">Nombre del dispositivo</h3>
-								<div class="col-mb-3" "title-zarus">
+							<h2 class="mb-3 title-zarus">Configuracion del dispositivo</h2>
+								<div class="col-mb-3">
+									<label for="ssid">Tipo de dispositivo</label>
+									<select class="custom-select form-control input-zarus" id="dtid" name="dtid">
+										<option selected value="1">RGB-5050 Ligth</option>
+										<option value="2">Garage Sensor</option>
+										<option value="3">Speaker controller</option>
+									</select>
+								</div>
+								<div class="col-mb-3">
 									<label for="ssid">Nombre del dispositivo</label>
-									<input type="text" class="form-control input-zarus" id="rcsid" name="rcsid" placeholder="SSID" value="" required>
+									<input type="text" class="form-control input-zarus" id="rcsid" name="rcsid" placeholder="abc123" value="" maxlength="6" required>
 								</div>
 								<div class="col-mb-3">
 									<label for="password">Contraseña del dispositivo</label>
-									<input type="password" class="form-control input-zarus" id="rcpid" name="rcpid" placeholder="Contraseña" value="" required>
+									<input type="password" class="form-control input-zarus" id="rcpid" name="rcpid" placeholder="Contraseña" value="" maxlength="20" required>
 								</div>
 						</div>
 						<div class="bg-dark border-dark">
