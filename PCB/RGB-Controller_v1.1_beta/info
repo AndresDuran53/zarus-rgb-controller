@@ -5,7 +5,7 @@
   "title": "RGB-Controller",
   "uuid": "bb151465107cbcb66838af9b7f345379",
   "created_at": "2021-06-23 20:01:40",
-  "updated_at": "2022-05-04 17:55:37",
+  "updated_at": "2022-05-15 13:36:59",
   "documents": [
     {
       "uuid": "1b187e9b302b48b793f873c6e7c0f0bf",
@@ -14,11 +14,11 @@
       "docType": "1",
       "master": "",
       "thumb": "/images/thumb-default.png",
-      "updateTime": 1651539308,
+      "updateTime": 1652643351,
       "createTime": 1624497770,
       "histories": [],
       "created_at": "2021-06-23 19:22:50",
-      "updated_at": "2022-05-02 18:55:08",
+      "updated_at": "2022-05-15 13:35:51",
       "BOM": [
         [
           "Value",
@@ -42,24 +42,10 @@
           }
         ],
         [
-          "Header-Male-2.54_1x4_C59481",
-          1,
-          "HDR-TH_4P-P2.54-V",
-          "H1",
-          {
-            "BOM_Supplier": "LCSC",
-            "BOM_Manufacturer": "ReliaPro",
-            "BOM_Manufacturer Part": "Headers  Pins 1*4P",
-            "BOM_Supplier Part": "C59481",
-            "puuid": "31a453d5adfc45cea944a6450adf2918",
-            "uuid": "1ae60609edcb859d8c7e885be62b78ae"
-          }
-        ],
-        [
           "Header-Male-2.54_1x3",
-          3,
+          2,
           "HEADER-MALE-2.54_1X3",
-          "H2,H4,H5",
+          "H4,H5",
           {
             "BOM_Manufacturer": "",
             "BOM_Manufacturer Part": "",
@@ -67,6 +53,21 @@
             "BOM_Supplier": "",
             "puuid": "69fc9196cbf648b68d5c82f95280b218",
             "uuid": "3863fbfe06664d5d90ee297e8dabad5c"
+          }
+        ],
+        [
+          "TSOP38236",
+          1,
+          "SENSOR-TG_TSOP38236",
+          "LED1",
+          {
+            "BOM_Supplier": "LCSC",
+            "BOM_Manufacturer": "VISHAY",
+            "BOM_Manufacturer Part": "TSOP38236",
+            "BOM_Supplier Part": "C5139",
+            "BOM_JLCPCB Part Class": "Extended Part",
+            "puuid": "d2c5aeb27e064ac1b0dda5e05c9e0886",
+            "uuid": "03f46477b3474052a250dc3c6a4270af"
           }
         ],
         [
@@ -190,20 +191,6 @@
           }
         ],
         [
-          "FTDI",
-          1,
-          "FTDI_PROG",
-          "U1",
-          {
-            "BOM_Manufacturer": "",
-            "BOM_Manufacturer Part": "",
-            "BOM_Supplier Part": "",
-            "BOM_Supplier": "",
-            "puuid": "fcdfcaa6dff34ff584848cdc041ded6a",
-            "uuid": "b1123bdbb6d949fcbfe206f41b70f2af"
-          }
-        ],
-        [
           "AMS1117-3.3",
           1,
           "SOT-223-3_L6.5-W3.4-P2.30-LS7.0-BR",
@@ -219,18 +206,32 @@
           }
         ],
         [
-          "AMS1117-5.0",
+          "LM7805S2/TR",
           1,
-          "SOT-223_L6.5-W3.5-P2.30-LS7.0-BR",
-          "U3",
+          "TO-263-2_L10.0-W9.1-P5.08-LS15.2-BL",
+          "U4",
           {
             "BOM_Supplier": "LCSC",
-            "BOM_Manufacturer": "AMS",
-            "BOM_Manufacturer Part": "AMS1117-5.0",
-            "BOM_Supplier Part": "C6187",
-            "BOM_JLCPCB Part Class": "Basic Part",
-            "puuid": "4ca399a3887148eeab92cd3a98a855b3",
-            "uuid": "245526444bbe85b260f4b99a6aa28864"
+            "BOM_Supplier Part": "C2902505",
+            "BOM_Manufacturer": "HGSEMI(华冠)",
+            "BOM_Manufacturer Part": "LM7805S2/TR",
+            "BOM_JLCPCB Part Class": "Extended Part",
+            "puuid": "1f6659b826d8443a8b61526dca6e814e",
+            "uuid": "fc82e2f5b1f9422f83e275e0d4909e08"
+          }
+        ],
+        [
+          "BTC-MC5S-53",
+          1,
+          "MICRO-USB-SMD_MICRO-USB-BTC-MC5S-43",
+          "USB1",
+          {
+            "BOM_Supplier": "LCSC",
+            "BOM_Supplier Part": "C2908216",
+            "BOM_Manufacturer": "DGBZ(东莞博众)",
+            "BOM_Manufacturer Part": "BTC-MC5S-53",
+            "puuid": "2b6b005bd8914fb6bb7509a29bdeccad",
+            "uuid": "82e00c94ce9443e8acd7b1526b4b7169"
           }
         ]
       ],
@@ -241,14 +242,16 @@
         "daa3cf3493c84fa3b0b6a6d427d23f0b": 1,
         "1ae60609edcb859d8c7e885be62b78ae": 1,
         "4439ff8d4269ac30d55af3439a30f0ec": 4,
-        "3355272a49bd4742908efaa1b7a4124b": 1,
         "501e3ffea2d1436abf4de865e96238d5": 3,
         "5408a45f75973f72d7f0362679572761": 4,
         "e7ed4677edf991c3ce925499eff63e7c": 3,
         "3f36348ec05ee4392d9b4650c680cc0f": 3,
-        "3863fbfe06664d5d90ee297e8dabad5c": 3,
-        "245526444bbe85b260f4b99a6aa28864": 1,
-        "588dac9f81df8f83843513972963b454": 1
+        "3863fbfe06664d5d90ee297e8dabad5c": 2,
+        "588dac9f81df8f83843513972963b454": 1,
+        "82e00c94ce9443e8acd7b1526b4b7169": 1,
+        "03f46477b3474052a250dc3c6a4270af": 1,
+        "3355272a49bd4742908efaa1b7a4124b": 1,
+        "fc82e2f5b1f9422f83e275e0d4909e08": 1
       }
     },
     {
@@ -259,22 +262,24 @@
       "docType": "3",
       "master": "",
       "thumb": "/images/thumb-default.png",
-      "updateTime": 1651708537,
+      "updateTime": 1652643419,
       "createTime": 1624498158,
       "histories": [],
       "created_at": "2021-06-23 19:29:18",
-      "updated_at": "2022-05-04 17:55:37",
+      "updated_at": "2022-05-15 13:36:59",
       "components": {
+        "19b03e126b4149478e4cdb096830b48b": 1,
+        "1f6659b826d8443a8b61526dca6e814e": 1,
+        "d2c5aeb27e064ac1b0dda5e05c9e0886": 1,
+        "2b6b005bd8914fb6bb7509a29bdeccad": 1,
         "1337670005c6484c999f9b4c272ee9fe": 1,
         "31a453d5adfc45cea944a6450adf2918": 1,
         "4a81c52f384a4e1ba3f57a3703e0f5f9": 3,
         "2a819e02584e46aea9f04b619de61270": 3,
         "b60f399a7a7e41848b2be1eb49c79141": 4,
         "8e9b1be4bcb6420dbd1d09bf04b02792": 4,
-        "19b03e126b4149478e4cdb096830b48b": 1,
         "02ae667aca734971be8a5f58143dd564": 1,
-        "69fc9196cbf648b68d5c82f95280b218": 3,
-        "4ca399a3887148eeab92cd3a98a855b3": 1,
+        "69fc9196cbf648b68d5c82f95280b218": 2,
         "a153f1f1b51c48ffb6926e46e6a4b33b": 1,
         "8d980e0cb4b8404e96542d2888a244bd": 3,
         "aed8d0473b624a65a7a88afbaa59de4e": 1,
@@ -286,5 +291,5 @@
   "stick": "",
   "sort": [],
   "schfilename": "RGB-Controller.json",
-  "schfilemtime": 1651539308388
+  "schfilemtime": 1652643351961
 }

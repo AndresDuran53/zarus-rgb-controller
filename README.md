@@ -30,9 +30,30 @@ For more information go to [Zarus IoT Hub](https://github.com/AndresDuran53/zaru
 8. Now that you have the IP of your device you just have to put that IP into the browser and you are going to be able to control the device.
 
 ## Create yours from scratch
+[<img src="pcb_view.jpg" alt="RGB controller PCB view" width="250">](pcb_view.jpg)
+
 ### PCB creation
+You can find the Gerber, BOM, and PickAndPlace files in the [PCB/RGB-Controller](PCB/RGB-Controller) folder, to create your own PCB. Also you can import the hole folder into EasyEDA to modify it yourself.
+
+You only need to add a cable to connect to the RGB Leds (5050 Strip or NeoPixel, respective paths), and the InfraRed transistor if you wanted.
+
+[<img src="3D-view.png" alt="RGB controller PCB 3D view" width="250">](3D-view.png)
+
+### 3D Printing
+In the folder [3D Desing](3D%20Desing) you can find the .stl file to print in any 3D printer and also a .FCStd file that you can use to modify the model using Freecad. Or if you wanted you can use the .gcode to just import to a printer.
+
+[<img src="case_view.jpg" alt="RGB controller 3D case" width="250">](case_view.jpg)
+
+#### Parameters used for gcode
+* Printer: Ender 3 Pro
+* Material: PETG
+* Heat Bed: Yes
 
 ### Compile using Arduino
+1. Download the firmware in [RGB-Strip-Firmware](RGB-Strip-Firmware).
+2. Open it in the Arduino IDE.
+3. Import the libraries.
+4. Upload the sketch.
 
 #### Libraries and tools needed
 Tools for upload files into the ESP device:
