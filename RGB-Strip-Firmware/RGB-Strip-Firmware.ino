@@ -315,10 +315,13 @@ void IoTConfig() {
   IoTController::addTimer(100, checkIRrecieved);
   IoTController::addTimer(20, stepAnimation);
   IoTController::setup(deviceType, consoleLevel, deviceToken);
-  IoTController::addCommonData("red_color_value", "rgbh", 9, "#000000", "String", [](String hexValue) {
+  IoTController::addCommonData("rgb_color_hex", "rgbh", 8, "#000000", "String", [](String hexValue) {
     setColorFromHex(hexValue);
   });
-  IoTController::addCommonData("actual_brightness", "lhbr", 9, String(actualBrightness), "int", [](String newValue) {
+  IoTController::addCommonData("rgb_color_value", "rgbv", 12, "0,0,0", "String", [](String rgbValue) {
+    setColorFromRgbString(rgbValue);
+  });
+  IoTController::addCommonData("actual_brightness", "lhbr", 4, String(actualBrightness), "int", [](String newValue) {
     setActualBrightness(newValue);
   });
   IoTController::addCommonData("display_mode", "dsmd", 2, "0", "String", [](String newValue) {
@@ -336,14 +339,36 @@ void setup() {
 
 void loop() {
   IoTController::loop();
-  //stepAnimation();
-  //delay(10);
+}
+
+String setColorFromRgbString(String rgbValue){
+  String hexvalue = rgbStringToHex(rgbValue);
+  setColorFromHex(hexvalue);
+}
+
+String rgbStringToHex(String rgbValue){
+  int valuesRGB[3];
+  String valueAux = rgbValue;
+  int index;
+  String redValue
+  if(rgbValue.length()<5 || rgbValue.length()>11){
+    return actualHexValue;
+  }
+  for(int i = 0; i<3; i++){
+    index = valueAux.indexOf(',');
+    valuesRGB[i] = valueAux.substring(0,index);
+    valueAux = valueAux.substring(index+1,valueAux.length());
+  }
+  return rgbToHex(valuesRGB[0],valuesRGB[1],valuesRGB[2]);
 }
 
 String rgbToHex(int red, int green, int blue) {
-  char hex[8] = {0};
-  sprintf(hex, "#%02X%02X%02X", red, green, blue);
-  hex[7] = '\0';
-  String hexValue = String(hex);
-  return hexValue;
+  if(red>=0 && green>=0 && blue>=0 && red<=255,green<=255,blue<=255){
+    char hex[8] = {0};
+    sprintf(hex, "#%02X%02X%02X", red, green, blue);
+    hex[7] = '\0';
+    String hexValue = String(hex);
+    return hexValue;
+  }
+  else return actualHexValue;
 }
