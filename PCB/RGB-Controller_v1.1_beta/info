@@ -5,7 +5,7 @@
   "title": "RGB-Controller",
   "uuid": "bb151465107cbcb66838af9b7f345379",
   "created_at": "2021-06-23 20:01:40",
-  "updated_at": "2022-05-15 13:36:59",
+  "updated_at": "2022-06-07 16:22:12",
   "documents": [
     {
       "uuid": "1b187e9b302b48b793f873c6e7c0f0bf",
@@ -14,11 +14,11 @@
       "docType": "1",
       "master": "",
       "thumb": "/images/thumb-default.png",
-      "updateTime": 1652643351,
+      "updateTime": 1654637136,
       "createTime": 1624497770,
       "histories": [],
       "created_at": "2021-06-23 19:22:50",
-      "updated_at": "2022-05-15 13:35:51",
+      "updated_at": "2022-06-07 15:25:36",
       "BOM": [
         [
           "Value",
@@ -56,18 +56,18 @@
           }
         ],
         [
-          "TSOP38236",
+          "TSOP38238",
           1,
           "SENSOR-TG_TSOP38236",
-          "LED1",
+          "LED2",
           {
             "BOM_Supplier": "LCSC",
             "BOM_Manufacturer": "VISHAY",
-            "BOM_Manufacturer Part": "TSOP38236",
-            "BOM_Supplier Part": "C5139",
+            "BOM_Manufacturer Part": "TSOP38238",
+            "BOM_Supplier Part": "C141632",
             "BOM_JLCPCB Part Class": "Extended Part",
             "puuid": "d2c5aeb27e064ac1b0dda5e05c9e0886",
-            "uuid": "03f46477b3474052a250dc3c6a4270af"
+            "uuid": "79a2dee92cba4e6f8ebea6d3676b60a8"
           }
         ],
         [
@@ -176,18 +176,18 @@
           }
         ],
         [
-          "SSSS811101",
+          "MSS3-V-T/R",
           1,
-          "SW-SMD_SSSS811101",
-          "SW2",
+          "SW-SMD_MSS3-V-T-R",
+          "SW3",
           {
             "BOM_Supplier": "LCSC",
-            "BOM_Manufacturer": "ALPS",
-            "BOM_Manufacturer Part": "SSSS811101",
-            "BOM_Supplier Part": "C109335",
+            "BOM_Supplier Part": "C495932",
+            "BOM_Manufacturer": "Diptronics",
+            "BOM_Manufacturer Part": "MSS3-V-T/R",
             "BOM_JLCPCB Part Class": "Extended Part",
-            "puuid": "a153f1f1b51c48ffb6926e46e6a4b33b",
-            "uuid": "2e69387db24742c8b664c44e409cdf34"
+            "puuid": "d68749298f2c403096522b5c0dc53a46",
+            "uuid": "eac23735ac124fd39b510d51c14fbd0b"
           }
         ],
         [
@@ -206,6 +206,20 @@
           }
         ],
         [
+          "USB-TTL-1sp",
+          1,
+          "USB-TTL",
+          "U3",
+          {
+            "BOM_Manufacturer": "",
+            "BOM_Manufacturer Part": "",
+            "BOM_Supplier Part": "",
+            "BOM_Supplier": "",
+            "puuid": "149ba6195aef47d8b15cca7663e0460a",
+            "uuid": "cbcf92299f02435cac9a5ca4c4123c73"
+          }
+        ],
+        [
           "LM7805S2/TR",
           1,
           "TO-263-2_L10.0-W9.1-P5.08-LS15.2-BL",
@@ -221,24 +235,23 @@
           }
         ],
         [
-          "BTC-MC5S-53",
+          "10118194-0001LF",
           1,
-          "MICRO-USB-SMD_MICRO-USB-BTC-MC5S-43",
-          "USB1",
+          "MICRO-USB-SMD_10118194-0001LF",
+          "USB2",
           {
             "BOM_Supplier": "LCSC",
-            "BOM_Supplier Part": "C2908216",
-            "BOM_Manufacturer": "DGBZ(东莞博众)",
-            "BOM_Manufacturer Part": "BTC-MC5S-53",
-            "puuid": "2b6b005bd8914fb6bb7509a29bdeccad",
-            "uuid": "82e00c94ce9443e8acd7b1526b4b7169"
+            "BOM_Supplier Part": "C132563",
+            "BOM_Manufacturer": "Amphenol ICC",
+            "BOM_Manufacturer Part": "10118194-0001LF",
+            "BOM_JLCPCB Part Class": "Extended Part",
+            "puuid": "496fa98e2adb455b8c16496fdc5a86f1",
+            "uuid": "2658a9c494a24534915c69ab9dbdba4e"
           }
         ]
       ],
       "components": {
         "f1798a96108007cb5dbffa5787ccc495": 1,
-        "2e69387db24742c8b664c44e409cdf34": 1,
-        "b1123bdbb6d949fcbfe206f41b70f2af": 1,
         "daa3cf3493c84fa3b0b6a6d427d23f0b": 1,
         "1ae60609edcb859d8c7e885be62b78ae": 1,
         "4439ff8d4269ac30d55af3439a30f0ec": 4,
@@ -248,10 +261,12 @@
         "3f36348ec05ee4392d9b4650c680cc0f": 3,
         "3863fbfe06664d5d90ee297e8dabad5c": 2,
         "588dac9f81df8f83843513972963b454": 1,
-        "82e00c94ce9443e8acd7b1526b4b7169": 1,
-        "03f46477b3474052a250dc3c6a4270af": 1,
         "3355272a49bd4742908efaa1b7a4124b": 1,
-        "fc82e2f5b1f9422f83e275e0d4909e08": 1
+        "fc82e2f5b1f9422f83e275e0d4909e08": 1,
+        "cbcf92299f02435cac9a5ca4c4123c73": 1,
+        "eac23735ac124fd39b510d51c14fbd0b": 1,
+        "79a2dee92cba4e6f8ebea6d3676b60a8": 1,
+        "2658a9c494a24534915c69ab9dbdba4e": 1
       }
     },
     {
@@ -262,16 +277,16 @@
       "docType": "3",
       "master": "",
       "thumb": "/images/thumb-default.png",
-      "updateTime": 1652643419,
+      "updateTime": 1654640532,
       "createTime": 1624498158,
       "histories": [],
       "created_at": "2021-06-23 19:29:18",
-      "updated_at": "2022-05-15 13:36:59",
+      "updated_at": "2022-06-07 16:22:12",
       "components": {
-        "19b03e126b4149478e4cdb096830b48b": 1,
-        "1f6659b826d8443a8b61526dca6e814e": 1,
+        "d68749298f2c403096522b5c0dc53a46": 1,
         "d2c5aeb27e064ac1b0dda5e05c9e0886": 1,
-        "2b6b005bd8914fb6bb7509a29bdeccad": 1,
+        "1f6659b826d8443a8b61526dca6e814e": 1,
+        "19b03e126b4149478e4cdb096830b48b": 1,
         "1337670005c6484c999f9b4c272ee9fe": 1,
         "31a453d5adfc45cea944a6450adf2918": 1,
         "4a81c52f384a4e1ba3f57a3703e0f5f9": 3,
@@ -280,10 +295,10 @@
         "8e9b1be4bcb6420dbd1d09bf04b02792": 4,
         "02ae667aca734971be8a5f58143dd564": 1,
         "69fc9196cbf648b68d5c82f95280b218": 2,
-        "a153f1f1b51c48ffb6926e46e6a4b33b": 1,
         "8d980e0cb4b8404e96542d2888a244bd": 3,
         "aed8d0473b624a65a7a88afbaa59de4e": 1,
-        "fcdfcaa6dff34ff584848cdc041ded6a": 1
+        "149ba6195aef47d8b15cca7663e0460a": 1,
+        "496fa98e2adb455b8c16496fdc5a86f1": 1
       }
     }
   ],
@@ -291,5 +306,5 @@
   "stick": "",
   "sort": [],
   "schfilename": "RGB-Controller.json",
-  "schfilemtime": 1652643351961
+  "schfilemtime": 1654637136887
 }
