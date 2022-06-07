@@ -341,7 +341,7 @@ void loop() {
   IoTController::loop();
 }
 
-String setColorFromRgbString(String rgbValue){
+void setColorFromRgbString(String rgbValue){
   String hexvalue = rgbStringToHex(rgbValue);
   setColorFromHex(hexvalue);
 }
@@ -350,13 +350,13 @@ String rgbStringToHex(String rgbValue){
   int valuesRGB[3];
   String valueAux = rgbValue;
   int index;
-  String redValue
+  String redValue;
   if(rgbValue.length()<5 || rgbValue.length()>11){
     return actualHexValue;
   }
   for(int i = 0; i<3; i++){
     index = valueAux.indexOf(',');
-    valuesRGB[i] = valueAux.substring(0,index);
+    valuesRGB[i] = valueAux.substring(0,index).toInt();
     valueAux = valueAux.substring(index+1,valueAux.length());
   }
   return rgbToHex(valuesRGB[0],valuesRGB[1],valuesRGB[2]);
