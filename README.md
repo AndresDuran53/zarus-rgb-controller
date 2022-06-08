@@ -5,6 +5,8 @@
 <img  width="480" src="iot_rgb_banner.png">
 
 # RGB Strip Controller for ESP8266 and ESP32
+Control your rgb lights from your cell phone, using a website, an mqtt broker, or even the same remote control that came with the lights
+
 Look at the [Zarus IoT Hub](https://github.com/AndresDuran53/zarus-iot-app) to get an easy way to connect to the devices without an IP.
 
 ## Quick Start
