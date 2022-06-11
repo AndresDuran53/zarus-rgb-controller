@@ -361,16 +361,16 @@ void IoTConfig() {
   IoTController::addTimer(100, checkIRrecieved);
   IoTController::addTimer(20, stepAnimation);
   IoTController::setup(deviceType, consoleLevel, deviceToken);
-  IoTController::addCommonData("rgb_color_hex", "rgbh", 8, "#000000", "String", [](String hexValue) {
+  IoTController::createStoredData("rgb_color_hex", "rgbh", 8, "#000000", "String", [](String hexValue) {
     setColorFromHex(hexValue);
   });
-  IoTController::addCommonData("rgb_color_value", "rgbv", 12, "0,0,0", "String", [](String rgbValue) {
+  IoTController::createStoredData("rgb_color_value", "rgbv", 12, "0,0,0", "String", [](String rgbValue) {
     setColorFromRgbString(rgbValue);
   });
-  IoTController::addCommonData("actual_brightness", "lhbr", 4, String(actualBrightness), "int", [](String newValue) {
+  IoTController::createStoredData("actual_brightness", "lhbr", 4, String(actualBrightness), "int", [](String newValue) {
     setActualBrightness(newValue);
   });
-  IoTController::addCommonData("display_mode", "dsmd", 2, "0", "String", [](String newValue) {
+  IoTController::createStoredData("display_mode", "dsmd", 2, "0", "String", [](String newValue) {
     setEffect(newValue);
   });
   IoTController::init();
