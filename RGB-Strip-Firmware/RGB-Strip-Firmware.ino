@@ -62,6 +62,14 @@ void setColorFromRGB(int r, int g, int b, int brightness) {
   analogWrite(BLUE_PIN, b_aux);
 }
 
+String getRGBStringFromHex(String hexValue){
+  int number = (int) strtol( &hexValue[1], NULL, 16);
+  int r = number >> 16;
+  int g = number >> 8 & 0xFF;
+  int b = number & 0xFF;
+  return String(r)+","+String(g)+","+String(b)+",";
+}
+
 void setColorFromHex(String hexValue,int brightness) {
   if(brightness==-1) brightness = actualBrightness;
   actualHexValue = hexValue;
@@ -72,6 +80,13 @@ void setColorFromHex(String hexValue,int brightness) {
   int g = number >> 8 & 0xFF;
   int b = number & 0xFF;
   setColorFromRGB(r, g, b, brightness);
+}
+
+void setColorHexFromMqtt(String hexValue){
+  setColorFromHex(hexValue,actualBrightness);
+  String rgbv = getRGBStringFromHex(hexValue);
+  String jsonResponse = "{\"CID\":\"0\",\"rgbv\":\""+rgbv+"\"}";
+  IoTController::sendMqttMessage(jsonResponse);
 }
 
 String rgbToHex(int red, int green, int blue) {
@@ -308,40 +323,34 @@ void nightClubEffect() {
 
 void verifyIRrecieved(String value) {
   if (value == "ON") {
-    setEffect("0");
-    setActualBrightness("100");
+    IoTController::changeStoredValue("dsmd","0");
+    IoTController::changeStoredValue("lhbr","100");
   }
   else if (value == "OFF") {
-    setEffect("0");
-    setActualBrightness("0");
+    IoTController::changeStoredValue("dsmd","0");
+    IoTController::changeStoredValue("lhbr","0");
   }
   else if (value == "BRILLO_ARRIBA") {
     int actualBrightnessAux = map(actualBrightness, 0, MAX_BRIGHTNESS, 0, 100);
-    setActualBrightness(String(actualBrightnessAux + 10));
+    IoTController::changeStoredValue("lhbr",String(actualBrightnessAux + 10));
   }
   else if (value == "BRILLO_ABAJO") {
     int actualBrightnessAux = map(actualBrightness, 0, MAX_BRIGHTNESS, 0, 100);
-    setActualBrightness(String(actualBrightnessAux - 10));
+    IoTController::changeStoredValue("lhbr",String(actualBrightnessAux - 10));
   }
   else if (value == "FLASH") {
-    setEffect("1");
-    //ToDo
+    IoTController::changeStoredValue("dsmd","1");
   }
   else if (value == "STROBE") {
-    setEffect("2");
-    //ToDo
+    IoTController::changeStoredValue("dsmd","2");
   }
   else if (value == "FADE") {
-    setEffect("3");
-    //ToDo
+    IoTController::changeStoredValue("dsmd","3");
   }
   else if (value == "SMOOTH") {
-    setEffect("4");
-    //ToDo
+    IoTController::changeStoredValue("dsmd","4");
   }
-  else if (value == "Ninguno") {
-    return;
-  }
+  else if (value == "Ninguno") {return;}
   else {
     setEffect("0");
     setColorFromHex(value);
@@ -353,7 +362,7 @@ void checkIRrecieved() {
     String valueRecieved = rgbRemote.getIRDecodeValue(results.value);
     Logger::log("New IR value recieved: " + String(valueRecieved), Logger::DEBUG_LOG);
     verifyIRrecieved(valueRecieved);
-    irrecv.resume();  // Receive the next value
+    irrecv.resume();
   }
 }
 
@@ -362,7 +371,7 @@ void IoTConfig() {
   IoTController::addTimer(20, stepAnimation);
   IoTController::setup(deviceType, consoleLevel, deviceToken);
   IoTController::createStoredData("rgb_color_hex", "rgbh", 8, "#000000", "String", [](String hexValue) {
-    setColorFromHex(hexValue);
+    setColorHexFromMqtt(hexValue);
   });
   IoTController::createStoredData("rgb_color_value", "rgbv", 12, "0,0,0", "String", [](String rgbValue) {
     setColorFromRgbString(rgbValue);
