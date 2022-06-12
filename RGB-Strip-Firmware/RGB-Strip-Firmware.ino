@@ -352,8 +352,8 @@ void verifyIRrecieved(String value) {
   }
   else if (value == "Ninguno") {return;}
   else {
-    setEffect("0");
-    setColorFromHex(value);
+    IoTController::changeStoredValue("dsmd","0");
+    IoTController::changeStoredValue("rgbh",value);
   }
 }
 
