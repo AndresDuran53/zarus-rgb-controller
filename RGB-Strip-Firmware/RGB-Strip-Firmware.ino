@@ -331,12 +331,13 @@ void verifyIRrecieved(String value) {
     IoTController::changeStoredValue("lhbr","0");
   }
   else if (value == "BRILLO_ARRIBA") {
-    int actualBrightnessAux = map(actualBrightness, 0, MAX_BRIGHTNESS, 0, 100);
-    IoTController::changeStoredValue("lhbr",String(actualBrightnessAux + 10));
+    int actualBrightnessAux = min(MAX_BRIGHTNESS, actualBrightness + 10);
+    IoTController::changeStoredValue("lhbr",String(actualBrightnessAux));
   }
   else if (value == "BRILLO_ABAJO") {
-    int actualBrightnessAux = map(actualBrightness, 0, MAX_BRIGHTNESS, 0, 100);
-    IoTController::changeStoredValue("lhbr",String(actualBrightnessAux - 10));
+
+    int actualBrightnessAux = max(0, actualBrightness - 10);
+    IoTController::changeStoredValue("lhbr",String(actualBrightnessAux));
   }
   else if (value == "FLASH") {
     IoTController::changeStoredValue("dsmd","1");
